@@ -1123,6 +1123,38 @@ body.in-fullscreen #viewPresentation,
   text-align: left;
 }
 
+.presentation-table.wrap-cells {
+  table-layout: fixed;
+}
+
+.presentation-table.wrap-cells th,
+.presentation-table.wrap-cells td {
+  overflow-wrap: anywhere;
+}
+
+.presentation-table.wrap-cells .role-badge {
+  white-space: normal;
+}
+
+.presentation-table.wrap-cells .badge-code,
+.presentation-table.wrap-cells .moscow-badge {
+  display: inline-block;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.presentation-table.wrap-cells .badge-code {
+  padding-right: 3px;
+  padding-left: 3px;
+  font-size: 0.72rem;
+}
+
+.presentation-table.wrap-cells .moscow-badge {
+  padding-right: 4px;
+  padding-left: 4px;
+  font-size: 0.62rem;
+}
+
 .presentation-table th {
   background-color: rgba(15, 23, 42, 0.8);
   color: #94a3b8;
@@ -1671,6 +1703,10 @@ body.in-fullscreen #viewPresentation,
 .sum-row {
   background-color: rgba(255, 255, 255, 0.06);
   font-weight: 700;
+}
+
+.tasks-card .sum-row .badge-capacity {
+  white-space: nowrap;
 }
 
 /* Bottom Nav Bar */
