@@ -1,0 +1,313 @@
+TÀI LIỆU ĐẶC TẢ YÊU CẦU PHẦN MỀM
+DỰ ÁN: MOTOGO – NỀN TẢNG CHO THUÊ XE MÁY TỰ LÁI
+1. GIỚI THIỆU
+1.1. Mục đích tài liệu
+Tài liệu mô tả các yêu cầu nghiệp vụ và yêu cầu chức năng cho phiên bản đầu tiên (MVP) của nền tảng MotoGo. Tài liệu là cơ sở để nhóm phát triển hiểu bài toán, thống nhất phạm vi và xây dựng kế hoạch triển khai theo Scrum.
+1.2. Phạm vi sản phẩm
+MotoGo là nền tảng trung gian (web responsive) kết nối khách du lịch có nhu cầu thuê xe máy tự lái với các cửa hàng cho thuê xe tại các thành phố du lịch, bắt đầu từ Vũng Tàu và Đà Nẵng. Nền tảng cho phép khách tìm xe theo thời gian và địa điểm, đặt giữ chỗ, đặt cọc trực tuyến, nhận và trả xe với biên bản bàn giao có hình ảnh, đồng thời cung cấp cho cửa hàng công cụ quản lý kho xe và đơn thuê.
+Mục tiêu kinh doanh của phiên bản đầu tiên:
+Đưa vào vận hành với tối thiểu 30 cửa hàng và 400 xe trong 6 tháng đầu.
+Giảm thời gian từ lúc khách tìm xe đến lúc đặt thành công xuống dưới 5 phút.
+Giảm tỷ lệ tranh chấp về tình trạng xe khi trả xuống dưới 3% số đơn.
+2. MÔ TẢ TỔNG QUAN
+2.1. Bối cảnh nghiệp vụ hiện tại
+Hiện nay khách du lịch muốn thuê xe máy thường phải tìm số điện thoại cửa hàng trên mạng xã hội, nhắn tin hỏi giá và tình trạng xe, rồi hẹn gặp trực tiếp. Cách làm này phát sinh nhiều bất cập:
+Khách không biết xe còn trống hay không cho tới khi cửa hàng trả lời, thường mất từ 15 phút đến vài giờ.
+Giá thuê được báo bằng miệng, không nhất quán giữa các lần hỏi, dễ phát sinh tranh cãi.
+Cửa hàng quản lý lịch thuê bằng sổ tay hoặc file Excel, thường xuyên nhận trùng đơn trong cùng khung giờ.
+Khi trả xe, hai bên hay tranh chấp về vết xước có sẵn từ trước vì không có bằng chứng lúc giao xe.
+Cửa hàng phải giữ giấy tờ tùy thân của khách làm tin, khiến khách e ngại và giảm tỷ lệ chốt đơn.
+2.2. Các nhóm người dùng
+Nhóm | Mô tả | Mối quan tâm chính
+Nhóm
+Mô tả
+Mối quan tâm chính
+Khách thuê | Khách du lịch trong nước, độ tuổi 20–45, dùng điện thoại là chính. | Tìm được xe đúng thời gian và ngân sách; thủ tục nhanh; không bị mất tiền oan.
+Khách thuê
+Khách du lịch trong nước, độ tuổi 20–45, dùng điện thoại là chính.
+Tìm được xe đúng thời gian và ngân sách; thủ tục nhanh; không bị mất tiền oan.
+Chủ cửa hàng | Chủ hộ kinh doanh, sở hữu 5–50 xe, khả năng công nghệ ở mức cơ bản. | Lấp đầy lịch thuê; tránh trùng đơn; theo dõi doanh thu và đối soát tiền.
+Chủ cửa hàng
+Chủ hộ kinh doanh, sở hữu 5–50 xe, khả năng công nghệ ở mức cơ bản.
+Lấp đầy lịch thuê; tránh trùng đơn; theo dõi doanh thu và đối soát tiền.
+Nhân viên cửa hàng | Người trực tiếp giao và nhận xe tại điểm hẹn. | Thao tác nhanh trên điện thoại; ghi nhận tình trạng xe đầy đủ.
+Nhân viên cửa hàng
+Người trực tiếp giao và nhận xe tại điểm hẹn.
+Thao tác nhanh trên điện thoại; ghi nhận tình trạng xe đầy đủ.
+Vận hành viên MotoGo | Nhân sự nội bộ duyệt hồ sơ cửa hàng và xử lý khiếu nại. | Hồ sơ cửa hàng hợp lệ; xử lý khiếu nại có bằng chứng rõ ràng.
+Vận hành viên MotoGo
+Nhân sự nội bộ duyệt hồ sơ cửa hàng và xử lý khiếu nại.
+Hồ sơ cửa hàng hợp lệ; xử lý khiếu nại có bằng chứng rõ ràng.
+Quản trị hệ thống | Nhân sự nội bộ cấu hình chính sách và xem báo cáo. | Cấu hình phí, chính sách hủy; theo dõi số liệu vận hành.
+Quản trị hệ thống
+Nhân sự nội bộ cấu hình chính sách và xem báo cáo.
+Cấu hình phí, chính sách hủy; theo dõi số liệu vận hành.
+2.3. Giả định và ràng buộc
+Phiên bản đầu tiên chỉ triển khai trên nền web responsive, chưa làm ứng dụng di động riêng.
+Thanh toán trực tuyến tích hợp qua một cổng thanh toán nội địa do bên thứ ba cung cấp; nền tảng không tự lưu thông tin thẻ.
+Việc xác thực giấy phép lái xe ở giai đoạn đầu do vận hành viên kiểm tra thủ công trên ảnh chụp, chưa tích hợp dịch vụ định danh điện tử.
+Hệ thống chỉ hỗ trợ tiếng Việt trong phiên bản đầu tiên; tiếng Anh dự kiến ở giai đoạn sau.
+Thời gian triển khai dự kiến: 5 Sprint, mỗi Sprint 2 tuần.
+3. YÊU CẦU CHỨC NĂNG
+Các yêu cầu dưới đây được mô tả theo góc nhìn nghiệp vụ, sắp xếp theo module. Mã yêu cầu có dạng FR-xx dùng để tham chiếu khi nhóm truy vết ngược từ Product Backlog về tài liệu.
+3.1. Module Tài khoản và xác thực (FR-01 → FR-05)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-01 | Khách thuê đăng ký tài khoản bằng số điện thoại, xác thực qua mã OTP gửi bằng tin nhắn. Mỗi số điện thoại chỉ gắn với một tài khoản.
+FR-01
+Khách thuê đăng ký tài khoản bằng số điện thoại, xác thực qua mã OTP gửi bằng tin nhắn. Mỗi số điện thoại chỉ gắn với một tài khoản.
+FR-02 | Khách thuê đăng nhập bằng số điện thoại và mật khẩu, có chức năng quên mật khẩu qua OTP.
+FR-02
+Khách thuê đăng nhập bằng số điện thoại và mật khẩu, có chức năng quên mật khẩu qua OTP.
+FR-03 | Khách thuê cập nhật hồ sơ cá nhân: họ tên, ngày sinh, địa chỉ liên hệ, ảnh căn cước và ảnh giấy phép lái xe hạng A1 trở lên.
+FR-03
+Khách thuê cập nhật hồ sơ cá nhân: họ tên, ngày sinh, địa chỉ liên hệ, ảnh căn cước và ảnh giấy phép lái xe hạng A1 trở lên.
+FR-04 | Tài khoản chưa được duyệt giấy phép lái xe vẫn xem và tìm kiếm được xe, nhưng không hoàn tất được đơn thuê.
+FR-04
+Tài khoản chưa được duyệt giấy phép lái xe vẫn xem và tìm kiếm được xe, nhưng không hoàn tất được đơn thuê.
+FR-05 | Cửa hàng đăng ký gian hàng với thông tin: tên cửa hàng, địa chỉ, giấy phép kinh doanh, số tài khoản nhận tiền. Gian hàng chỉ hiển thị công khai sau khi vận hành viên duyệt.
+FR-05
+Cửa hàng đăng ký gian hàng với thông tin: tên cửa hàng, địa chỉ, giấy phép kinh doanh, số tài khoản nhận tiền. Gian hàng chỉ hiển thị công khai sau khi vận hành viên duyệt.
+3.2. Module Quản lý kho xe (FR-06 → FR-10)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-06 | Cửa hàng khai báo từng xe với các thông tin: biển số, hãng, dòng xe, năm sản xuất, loại xe (số, tay ga, côn tay), dung tích, mô tả tình trạng và tối thiểu 4 ảnh thực tế.
+FR-06
+Cửa hàng khai báo từng xe với các thông tin: biển số, hãng, dòng xe, năm sản xuất, loại xe (số, tay ga, côn tay), dung tích, mô tả tình trạng và tối thiểu 4 ảnh thực tế.
+FR-07 | Cửa hàng thiết lập giá thuê theo ngày cho từng xe, cho phép cấu hình giá riêng cho ngày cuối tuần và các dịp lễ.
+FR-07
+Cửa hàng thiết lập giá thuê theo ngày cho từng xe, cho phép cấu hình giá riêng cho ngày cuối tuần và các dịp lễ.
+FR-08 | Cửa hàng đánh dấu xe ở trạng thái tạm ngưng cho thuê (bảo dưỡng, hư hỏng) kèm khoảng thời gian dự kiến; xe ở trạng thái này không xuất hiện trong kết quả tìm kiếm.
+FR-08
+Cửa hàng đánh dấu xe ở trạng thái tạm ngưng cho thuê (bảo dưỡng, hư hỏng) kèm khoảng thời gian dự kiến; xe ở trạng thái này không xuất hiện trong kết quả tìm kiếm.
+FR-09 | Cửa hàng xem lịch thuê của toàn bộ kho xe theo dạng lịch tuần, biết xe nào đang được đặt trong khung thời gian nào.
+FR-09
+Cửa hàng xem lịch thuê của toàn bộ kho xe theo dạng lịch tuần, biết xe nào đang được đặt trong khung thời gian nào.
+FR-10 | Cửa hàng cấu hình các điểm giao nhận xe (tại cửa hàng, giao tận nơi trong bán kính quy định) kèm phí giao nhận tương ứng.
+FR-10
+Cửa hàng cấu hình các điểm giao nhận xe (tại cửa hàng, giao tận nơi trong bán kính quy định) kèm phí giao nhận tương ứng.
+3.3. Module Tìm kiếm và xem chi tiết (FR-11 → FR-15)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-11 | Khách thuê tìm xe bằng cách chọn thành phố, ngày giờ nhận và ngày giờ trả. Hệ thống chỉ hiển thị các xe còn trống trong toàn bộ khoảng thời gian đó.
+FR-11
+Khách thuê tìm xe bằng cách chọn thành phố, ngày giờ nhận và ngày giờ trả. Hệ thống chỉ hiển thị các xe còn trống trong toàn bộ khoảng thời gian đó.
+FR-12 | Khách thuê lọc kết quả theo loại xe, khoảng giá, hãng xe, hình thức giao nhận và điểm đánh giá của cửa hàng.
+FR-12
+Khách thuê lọc kết quả theo loại xe, khoảng giá, hãng xe, hình thức giao nhận và điểm đánh giá của cửa hàng.
+FR-13 | Khách thuê sắp xếp kết quả theo giá tăng dần, giá giảm dần, điểm đánh giá hoặc khoảng cách tới vị trí hiện tại.
+FR-13
+Khách thuê sắp xếp kết quả theo giá tăng dần, giá giảm dần, điểm đánh giá hoặc khoảng cách tới vị trí hiện tại.
+FR-14 | Trang chi tiết xe hiển thị: ảnh, thông số, giá thuê, tổng chi phí dự kiến cho khoảng thời gian đã chọn, chính sách hủy, thông tin cửa hàng và đánh giá của khách trước.
+FR-14
+Trang chi tiết xe hiển thị: ảnh, thông số, giá thuê, tổng chi phí dự kiến cho khoảng thời gian đã chọn, chính sách hủy, thông tin cửa hàng và đánh giá của khách trước.
+FR-15 | Khách thuê lưu xe vào danh sách yêu thích để xem lại sau khi đã đăng nhập.
+FR-15
+Khách thuê lưu xe vào danh sách yêu thích để xem lại sau khi đã đăng nhập.
+3.4. Module Đặt xe và giữ chỗ (FR-16 → FR-21)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-16 | Khách thuê tạo đơn thuê từ trang chi tiết xe, chọn hình thức giao nhận và nhập ghi chú cho cửa hàng.
+FR-16
+Khách thuê tạo đơn thuê từ trang chi tiết xe, chọn hình thức giao nhận và nhập ghi chú cho cửa hàng.
+FR-17 | Khi đơn được tạo, hệ thống giữ chỗ chiếc xe đó trong 30 phút để khách hoàn tất thanh toán cọc. Hết thời gian, đơn tự động hủy và xe được mở lại cho khách khác.
+FR-17
+Khi đơn được tạo, hệ thống giữ chỗ chiếc xe đó trong 30 phút để khách hoàn tất thanh toán cọc. Hết thời gian, đơn tự động hủy và xe được mở lại cho khách khác.
+FR-18 | Hệ thống hiển thị bảng chi phí gồm: tiền thuê theo số ngày, phí giao nhận, tiền cọc và tổng số tiền phải trả khi nhận xe.
+FR-18
+Hệ thống hiển thị bảng chi phí gồm: tiền thuê theo số ngày, phí giao nhận, tiền cọc và tổng số tiền phải trả khi nhận xe.
+FR-19 | Cửa hàng nhận thông báo đơn mới và có 15 phút để xác nhận hoặc từ chối kèm lý do. Quá hạn, đơn tự động chuyển sang trạng thái chờ vận hành viên xử lý.
+FR-19
+Cửa hàng nhận thông báo đơn mới và có 15 phút để xác nhận hoặc từ chối kèm lý do. Quá hạn, đơn tự động chuyển sang trạng thái chờ vận hành viên xử lý.
+FR-20 | Khách thuê hủy đơn trước giờ nhận xe; số tiền được hoàn lại xác định theo chính sách hủy tại quy tắc nghiệp vụ BR-04.
+FR-20
+Khách thuê hủy đơn trước giờ nhận xe; số tiền được hoàn lại xác định theo chính sách hủy tại quy tắc nghiệp vụ BR-04.
+FR-21 | Khách thuê theo dõi trạng thái đơn của mình trong mục "Đơn thuê của tôi", bao gồm cả lịch sử các đơn đã hoàn tất.
+FR-21
+Khách thuê theo dõi trạng thái đơn của mình trong mục "Đơn thuê của tôi", bao gồm cả lịch sử các đơn đã hoàn tất.
+3.5. Module Thanh toán (FR-22 → FR-25)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-22 | Khách thuê thanh toán tiền cọc trực tuyến qua cổng thanh toán tích hợp; phần tiền còn lại trả trực tiếp cho cửa hàng khi nhận xe.
+FR-22
+Khách thuê thanh toán tiền cọc trực tuyến qua cổng thanh toán tích hợp; phần tiền còn lại trả trực tiếp cho cửa hàng khi nhận xe.
+FR-23 | Hệ thống ghi nhận kết quả giao dịch trả về từ cổng thanh toán và cập nhật trạng thái đơn tương ứng; giao dịch thất bại không làm mất thời gian giữ chỗ còn lại.
+FR-23
+Hệ thống ghi nhận kết quả giao dịch trả về từ cổng thanh toán và cập nhật trạng thái đơn tương ứng; giao dịch thất bại không làm mất thời gian giữ chỗ còn lại.
+FR-24 | Hệ thống phát hành biên nhận điện tử cho mỗi giao dịch thành công và gửi vào mục đơn thuê của khách.
+FR-24
+Hệ thống phát hành biên nhận điện tử cho mỗi giao dịch thành công và gửi vào mục đơn thuê của khách.
+FR-25 | Hệ thống tính hoa hồng nền tảng trên mỗi đơn hoàn tất và tổng hợp thành bảng đối soát theo tuần cho từng cửa hàng.
+FR-25
+Hệ thống tính hoa hồng nền tảng trên mỗi đơn hoàn tất và tổng hợp thành bảng đối soát theo tuần cho từng cửa hàng.
+3.6. Module Giao nhận xe (FR-26 → FR-29)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-26 | Khi giao xe, nhân viên cửa hàng lập biên bản bàn giao trên hệ thống: chụp tối thiểu 6 ảnh xe theo các góc quy định, ghi số ki-lô-mét và mức xăng hiện tại.
+FR-26
+Khi giao xe, nhân viên cửa hàng lập biên bản bàn giao trên hệ thống: chụp tối thiểu 6 ảnh xe theo các góc quy định, ghi số ki-lô-mét và mức xăng hiện tại.
+FR-27 | Khách thuê xác nhận biên bản giao xe bằng thao tác ký điện tử trên màn hình; đơn chỉ chuyển sang trạng thái đang thuê sau khi cả hai bên xác nhận.
+FR-27
+Khách thuê xác nhận biên bản giao xe bằng thao tác ký điện tử trên màn hình; đơn chỉ chuyển sang trạng thái đang thuê sau khi cả hai bên xác nhận.
+FR-28 | Khi trả xe, nhân viên cửa hàng lập biên bản nhận lại theo cùng quy trình; hệ thống hiển thị song song ảnh lúc giao và lúc nhận để hai bên đối chiếu.
+FR-28
+Khi trả xe, nhân viên cửa hàng lập biên bản nhận lại theo cùng quy trình; hệ thống hiển thị song song ảnh lúc giao và lúc nhận để hai bên đối chiếu.
+FR-29 | Nếu phát sinh hư hỏng hoặc trả trễ, nhân viên cửa hàng ghi nhận khoản phí phát sinh kèm mô tả và ảnh minh chứng trước khi tất toán đơn.
+FR-29
+Nếu phát sinh hư hỏng hoặc trả trễ, nhân viên cửa hàng ghi nhận khoản phí phát sinh kèm mô tả và ảnh minh chứng trước khi tất toán đơn.
+3.7. Module Đánh giá và khiếu nại (FR-30 → FR-33)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-30 | Sau khi đơn tất toán, khách thuê chấm điểm từ 1 đến 5 sao và viết nhận xét về xe và cửa hàng. Chỉ khách đã hoàn tất đơn mới được đánh giá.
+FR-30
+Sau khi đơn tất toán, khách thuê chấm điểm từ 1 đến 5 sao và viết nhận xét về xe và cửa hàng. Chỉ khách đã hoàn tất đơn mới được đánh giá.
+FR-31 | Cửa hàng phản hồi công khai một lần cho mỗi đánh giá của khách.
+FR-31
+Cửa hàng phản hồi công khai một lần cho mỗi đánh giá của khách.
+FR-32 | Khách thuê hoặc cửa hàng mở khiếu nại về một đơn cụ thể trong vòng 48 giờ kể từ khi tất toán, kèm mô tả và ảnh minh chứng.
+FR-32
+Khách thuê hoặc cửa hàng mở khiếu nại về một đơn cụ thể trong vòng 48 giờ kể từ khi tất toán, kèm mô tả và ảnh minh chứng.
+FR-33 | Vận hành viên xem toàn bộ hồ sơ đơn (biên bản giao, biên bản nhận, lịch sử thanh toán) để xử lý khiếu nại và ghi nhận kết luận.
+FR-33
+Vận hành viên xem toàn bộ hồ sơ đơn (biên bản giao, biên bản nhận, lịch sử thanh toán) để xử lý khiếu nại và ghi nhận kết luận.
+3.8. Module Kênh cửa hàng và quản trị (FR-34 → FR-38)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-34 | Cửa hàng xem bảng tổng quan gồm: số đơn theo trạng thái, doanh thu theo tuần và tháng, tỷ lệ lấp đầy của kho xe.
+FR-34
+Cửa hàng xem bảng tổng quan gồm: số đơn theo trạng thái, doanh thu theo tuần và tháng, tỷ lệ lấp đầy của kho xe.
+FR-35 | Cửa hàng xuất báo cáo doanh thu theo khoảng thời gian tự chọn ra tệp bảng tính.
+FR-35
+Cửa hàng xuất báo cáo doanh thu theo khoảng thời gian tự chọn ra tệp bảng tính.
+FR-36 | Vận hành viên duyệt hoặc từ chối hồ sơ cửa hàng và hồ sơ giấy phép lái xe của khách, kèm lý do khi từ chối.
+FR-36
+Vận hành viên duyệt hoặc từ chối hồ sơ cửa hàng và hồ sơ giấy phép lái xe của khách, kèm lý do khi từ chối.
+FR-37 | Quản trị hệ thống cấu hình các tham số vận hành: tỷ lệ hoa hồng, thời gian giữ chỗ, chính sách hủy, mức phí trả trễ.
+FR-37
+Quản trị hệ thống cấu hình các tham số vận hành: tỷ lệ hoa hồng, thời gian giữ chỗ, chính sách hủy, mức phí trả trễ.
+FR-38 | Quản trị hệ thống xem báo cáo toàn nền tảng: số đơn, tổng giá trị giao dịch, tỷ lệ hủy, tỷ lệ khiếu nại theo thành phố.
+FR-38
+Quản trị hệ thống xem báo cáo toàn nền tảng: số đơn, tổng giá trị giao dịch, tỷ lệ hủy, tỷ lệ khiếu nại theo thành phố.
+3.9. Module Thông báo (FR-39 → FR-40)
+Mã | Mô tả yêu cầu
+Mã
+Mô tả yêu cầu
+FR-39 | Hệ thống gửi thông báo cho khách khi: đơn được xác nhận, đơn bị từ chối, sắp đến giờ nhận xe (trước 2 giờ), sắp đến giờ trả xe (trước 2 giờ).
+FR-39
+Hệ thống gửi thông báo cho khách khi: đơn được xác nhận, đơn bị từ chối, sắp đến giờ nhận xe (trước 2 giờ), sắp đến giờ trả xe (trước 2 giờ).
+FR-40 | Hệ thống gửi thông báo cho cửa hàng khi: có đơn mới, khách hủy đơn, có đánh giá mới, có khiếu nại liên quan.
+FR-40
+Hệ thống gửi thông báo cho cửa hàng khi: có đơn mới, khách hủy đơn, có đánh giá mới, có khiếu nại liên quan.
+4. QUY TẮC NGHIỆP VỤ
+Mã | Nội dung quy tắc
+Mã
+Nội dung quy tắc
+BR-01 | Khách thuê phải từ 18 tuổi trở lên và có giấy phép lái xe đã được duyệt mới hoàn tất được đơn thuê.
+BR-01
+Khách thuê phải từ 18 tuổi trở lên và có giấy phép lái xe đã được duyệt mới hoàn tất được đơn thuê.
+BR-02 | Thời gian thuê tối thiểu là 4 giờ, tối đa là 30 ngày cho một đơn.
+BR-02
+Thời gian thuê tối thiểu là 4 giờ, tối đa là 30 ngày cho một đơn.
+BR-03 | Tiền cọc bằng 30% tổng tiền thuê, tối thiểu 200.000 đồng và tối đa 1.000.000 đồng cho một đơn.
+BR-03
+Tiền cọc bằng 30% tổng tiền thuê, tối thiểu 200.000 đồng và tối đa 1.000.000 đồng cho một đơn.
+BR-04 | Chính sách hủy: hủy trước giờ nhận xe từ 24 giờ trở lên được hoàn 100% tiền cọc; hủy trong khoảng từ 6 đến dưới 24 giờ được hoàn 50%; hủy dưới 6 giờ không được hoàn cọc.
+BR-04
+Chính sách hủy: hủy trước giờ nhận xe từ 24 giờ trở lên được hoàn 100% tiền cọc; hủy trong khoảng từ 6 đến dưới 24 giờ được hoàn 50%; hủy dưới 6 giờ không được hoàn cọc.
+BR-05 | Trả xe trễ dưới 60 phút được miễn phí; từ 60 phút trở lên tính phí theo giờ, mỗi giờ bằng 20% giá thuê một ngày.
+BR-05
+Trả xe trễ dưới 60 phút được miễn phí; từ 60 phút trở lên tính phí theo giờ, mỗi giờ bằng 20% giá thuê một ngày.
+BR-06 | Một chiếc xe không được xuất hiện trong hai đơn có khoảng thời gian giao nhau, kể cả đơn đang ở trạng thái giữ chỗ.
+BR-06
+Một chiếc xe không được xuất hiện trong hai đơn có khoảng thời gian giao nhau, kể cả đơn đang ở trạng thái giữ chỗ.
+BR-07 | Giữa hai đơn liên tiếp của cùng một xe phải có tối thiểu 60 phút để cửa hàng vệ sinh và kiểm tra xe.
+BR-07
+Giữa hai đơn liên tiếp của cùng một xe phải có tối thiểu 60 phút để cửa hàng vệ sinh và kiểm tra xe.
+BR-08 | Cửa hàng bị tạm khóa gian hàng khi tỷ lệ hủy đơn do cửa hàng vượt 20% trong 30 ngày gần nhất.
+BR-08
+Cửa hàng bị tạm khóa gian hàng khi tỷ lệ hủy đơn do cửa hàng vượt 20% trong 30 ngày gần nhất.
+BR-09 | Hoa hồng nền tảng mặc định là 12% trên tiền thuê, không tính trên phí giao nhận.
+BR-09
+Hoa hồng nền tảng mặc định là 12% trên tiền thuê, không tính trên phí giao nhận.
+BR-10 | Đánh giá của khách không được chỉnh sửa sau 7 ngày kể từ khi đăng.
+BR-10
+Đánh giá của khách không được chỉnh sửa sau 7 ngày kể từ khi đăng.
+5. YÊU CẦU PHI CHỨC NĂNG
+Nhóm | Yêu cầu
+Nhóm
+Yêu cầu
+Hiệu năng | Kết quả tìm kiếm trả về dưới 2 giây với kho dữ liệu 5.000 xe. Hệ thống đáp ứng 500 người dùng truy cập đồng thời trong cao điểm lễ.
+Hiệu năng
+Kết quả tìm kiếm trả về dưới 2 giây với kho dữ liệu 5.000 xe. Hệ thống đáp ứng 500 người dùng truy cập đồng thời trong cao điểm lễ.
+Khả dụng | Thời gian hoạt động tối thiểu 99% mỗi tháng. Bảo trì có kế hoạch được thông báo trước 24 giờ.
+Khả dụng
+Thời gian hoạt động tối thiểu 99% mỗi tháng. Bảo trì có kế hoạch được thông báo trước 24 giờ.
+Giao diện | Ưu tiên thiết kế cho màn hình điện thoại. Người dùng mới hoàn tất được một đơn thuê trong không quá 5 bước thao tác.
+Giao diện
+Ưu tiên thiết kế cho màn hình điện thoại. Người dùng mới hoàn tất được một đơn thuê trong không quá 5 bước thao tác.
+Bảo mật | Mật khẩu được mã hóa một chiều. Ảnh giấy tờ tùy thân chỉ hiển thị cho vận hành viên. Nhật ký truy cập dữ liệu cá nhân được lưu tối thiểu 12 tháng.
+Bảo mật
+Mật khẩu được mã hóa một chiều. Ảnh giấy tờ tùy thân chỉ hiển thị cho vận hành viên. Nhật ký truy cập dữ liệu cá nhân được lưu tối thiểu 12 tháng.
+Tương thích | Hoạt động ổn định trên Chrome, Safari và Edge phiên bản phát hành trong vòng 2 năm gần nhất.
+Tương thích
+Hoạt động ổn định trên Chrome, Safari và Edge phiên bản phát hành trong vòng 2 năm gần nhất.
+Khả năng mở rộng | Kiến trúc cho phép bổ sung thành phố mới mà không cần thay đổi mã nguồn lõi.
+Khả năng mở rộng
+Kiến trúc cho phép bổ sung thành phố mới mà không cần thay đổi mã nguồn lõi.
+6. PHẠM VI KHÔNG BAO GỒM
+Các nội dung sau nằm ngoài phạm vi phiên bản đầu tiên và không được đưa vào Product Backlog của dự án:
+Ứng dụng di động gốc trên iOS và Android.
+Cho thuê ô tô, xe đạp hoặc các phương tiện khác ngoài xe máy.
+Chương trình khách hàng thân thiết, tích điểm và mã giảm giá.
+Tích hợp bảo hiểm chuyến thuê với đối tác bảo hiểm.
+Định vị xe theo thời gian thực bằng thiết bị gắn trên xe.
+Giao diện đa ngôn ngữ và thanh toán bằng ngoại tệ.
+7. PHỤ LỤC
+7.1. Vòng đời trạng thái của đơn thuê
+Trạng thái | Điều kiện chuyển tiếp | Trạng thái kế tiếp
+Trạng thái
+Điều kiện chuyển tiếp
+Trạng thái kế tiếp
+Chờ thanh toán | Khách tạo đơn, xe được giữ chỗ 30 phút. | Chờ cửa hàng xác nhận / Đã hủy
+Chờ thanh toán
+Khách tạo đơn, xe được giữ chỗ 30 phút.
+Chờ cửa hàng xác nhận / Đã hủy
+Chờ cửa hàng xác nhận | Khách thanh toán cọc thành công. | Đã xác nhận / Bị từ chối
+Chờ cửa hàng xác nhận
+Khách thanh toán cọc thành công.
+Đã xác nhận / Bị từ chối
+Đã xác nhận | Cửa hàng chấp nhận đơn trong 15 phút. | Đang thuê / Đã hủy
+Đã xác nhận
+Cửa hàng chấp nhận đơn trong 15 phút.
+Đang thuê / Đã hủy
+Đang thuê | Hai bên ký biên bản giao xe. | Chờ tất toán
+Đang thuê
+Hai bên ký biên bản giao xe.
+Chờ tất toán
+Chờ tất toán | Hai bên ký biên bản nhận lại xe. | Hoàn tất / Đang khiếu nại
+Chờ tất toán
+Hai bên ký biên bản nhận lại xe.
+Hoàn tất / Đang khiếu nại
+Hoàn tất | Thanh toán đầy đủ, không có khiếu nại trong 48 giờ. | (kết thúc)
+Hoàn tất
+Thanh toán đầy đủ, không có khiếu nại trong 48 giờ.
+(kết thúc)
+7.2. Số liệu tham khảo từ khảo sát khách hàng
+72% khách được hỏi cho biết yếu tố quyết định đặt xe là biết chắc xe còn trống vào đúng ngày cần.
+64% khách e ngại việc phải để lại giấy tờ tùy thân tại cửa hàng.
+58% cửa hàng cho biết từng nhận trùng hai đơn trong cùng khung giờ trong 3 tháng gần nhất.
+Thời gian trung bình từ lúc khách hỏi tới lúc chốt đơn theo cách làm hiện tại là 47 phút.
+7.3. Các điểm khách hàng chưa quyết định
+Những nội dung sau khách hàng chưa chốt. Nhóm cần chủ động đặt câu hỏi làm rõ với khách hàng, và ghi lại giả định của nhóm trong báo cáo:
+Có cho phép khách thuê nhiều xe trong cùng một đơn hay không.
+Cửa hàng có được tự đặt mức cọc riêng khác với quy tắc BR-03 hay không.
+Xử lý thế nào khi khách không đến nhận xe mà cũng không hủy đơn.
+Có cần chức năng nhắn tin giữa khách và cửa hàng ngay trong nền tảng hay không.

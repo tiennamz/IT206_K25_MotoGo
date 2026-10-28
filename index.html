@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotoGo Scrum Board & Presentation | Đỗ Tiến Nam - CNTT3</title>
+  <!-- Google Fonts & Font Awesome Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Trello Top Navigation Bar -->
+  <header class="trello-header">
+    <div class="header-left">
+      <div class="trello-logo">
+        <i class="fa-brands fa-trello"></i>
+        <span>Trello</span>
+      </div>
+      <div class="board-title-group">
+        <h1 class="board-name" id="boardTitle">MotoGo – Đỗ Tiến Nam – CNTT3</h1>
+        <button class="btn-icon star-btn" title="Đánh dấu sao"><i class="fa-regular fa-star"></i></button>
+        <span class="badge-visibility"><i class="fa-solid fa-earth-americas"></i> Công khai</span>
+        <span class="badge-course"><i class="fa-solid fa-graduation-cap"></i> IT-206 Agile Scrum</span>
+      </div>
+    </div>
+
+    <!-- View Switcher -->
+    <div class="view-switcher">
+      <button class="nav-tab active" data-view="board" id="tabBoard">
+        <i class="fa-solid fa-table-columns"></i> Trello Board
+      </button>
+      <button class="nav-tab" data-view="presentation" id="tabPresentation">
+        <i class="fa-solid fa-person-chalkboard"></i> Slide Thuyết Trình
+      </button>
+      <button class="nav-tab" data-view="defense" id="tabDefense">
+        <i class="fa-solid fa-shield-halved"></i> Kịch Bản Bảo Vệ (Q&A)
+      </button>
+      <button class="nav-tab" data-view="spec" id="tabSpec">
+        <i class="fa-solid fa-file-invoice"></i> Báo Cáo 8 Mục
+      </button>
+    </div>
+
+    <div class="header-right">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Tìm User Story, FR, Epic...">
+      </div>
+      <div class="user-avatar" title="Đỗ Tiến Nam (CNTT3)">
+        <span>TN</span>
+      </div>
+      <button class="btn btn-action" id="btnQuickExport" title="Xuất toàn bộ báo cáo Markdown">
+        <i class="fa-solid fa-file-export"></i> Copy Báo Cáo
+      </button>
+    </div>
+  </header>
+
+  <!-- Sub-header Bar (Filters & Quick Info) -->
+  <div class="sub-header">
+    <div class="sub-left">
+      <div class="filter-group">
+        <span class="filter-label" title="Kỹ thuật phân loại thứ tự ưu tiên trong Scrum: Must, Should, Could, Won't"><i class="fa-solid fa-filter"></i> Lọc MoSCoW:</span>
+        <button class="filter-pill active" data-filter="all" title="Hiển thị toàn bộ 10 User Story trong Backlog">Tất cả (10)</button>
+        <button class="filter-pill pill-must" data-filter="Must" title="Must Have (Bắt buộc phải có): 5 story cốt lõi sống còn của Sprint 1">Must Have (5)</button>
+        <button class="filter-pill pill-should" data-filter="Should" title="Should Have (Nên có): 3 story quan trọng nhưng có phương án làm tạm">Should Have (3)</button>
+        <button class="filter-pill pill-could" data-filter="Could" title="Could Have (Có thể có): 1 story tiện ích bổ sung nếu còn nguồn lực">Could Have (1)</button>
+        <button class="filter-pill pill-wont" data-filter="Won't" title="Won't Have (Chưa làm đợt này): 1 story dời sang các bản cập nhật sau">Won't Have (1)</button>
+      </div>
+    </div>
+    <div class="sub-right">
+      <div class="sprint-status-bar">
+        <span class="status-item"><i class="fa-solid fa-bullseye"></i> <strong>Sprint Goal:</strong> Đặt giữ chỗ & chống trùng lịch xe tại VT & ĐN</span>
+        <span class="status-item"><i class="fa-solid fa-gauge-high"></i> <strong>Velocity:</strong> 18 SP</span>
+        <span class="status-item"><i class="fa-solid fa-user-clock"></i> <strong>Capacity:</strong> 144h / 3 Devs</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="main-content">
+    
+    <!-- ================= VIEW 1: TRELLO BOARD ================= -->
+    <section class="view-panel active" id="viewBoard">
+      <div class="trello-canvas">
+        
+        <!-- Column 1: Epic -->
+        <div class="trello-list" data-column="epic">
+          <div class="list-header">
+            <h3 class="list-title"><i class="fa-solid fa-cubes"></i> Epic (3)</h3>
+            <span class="list-counter">3</span>
+          </div>
+          <div class="cards-container" id="colEpic">
+            <!-- Dynamic Cards injected via JS -->
+          </div>
+        </div>
+
+        <!-- Column 2: Feature -->
+        <div class="trello-list" data-column="feature">
+          <div class="list-header">
+            <h3 class="list-title"><i class="fa-solid fa-layer-group"></i> Feature (6)</h3>
+            <span class="list-counter">6</span>
+          </div>
+          <div class="cards-container" id="colFeature">
+            <!-- Dynamic Cards injected via JS -->
+          </div>
+        </div>
+
+        <!-- Column 3: Product Backlog -->
+        <div class="trello-list" data-column="backlog">
+          <div class="list-header">
+            <h3 class="list-title"><i class="fa-solid fa-list-check"></i> Product Backlog (10)</h3>
+            <span class="list-counter">10</span>
+          </div>
+          <div class="cards-container" id="colBacklog">
+            <!-- Dynamic Cards injected via JS -->
+          </div>
+        </div>
+
+        <!-- Column 4: Sprint 1 Backlog -->
+        <div class="trello-list sprint-col" data-column="sprint1">
+          <div class="list-header">
+            <h3 class="list-title"><i class="fa-solid fa-person-running"></i> Sprint 1 Backlog (4)</h3>
+            <span class="list-counter badge-velocity">18 / 18 SP</span>
+          </div>
+          <div class="cards-container" id="colSprint1">
+            <!-- Dynamic Cards injected via JS -->
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= VIEW 2: PRESENTATION DECK ================= -->
+    <section class="view-panel" id="viewPresentation">
+      <div class="presentation-wrapper">
+        <!-- Slide Controls Bar -->
+        <div class="slide-top-bar">
+          <div class="slide-tracker">
+            <span class="current-slide-num" id="currentSlideNum">1</span> / <span id="totalSlidesNum">9</span>
+            <span class="slide-category-name" id="slideCategoryName">Tổng quan Đề tài</span>
+          </div>
+          <div class="slide-quick-nav" id="slideThumbNav">
+            <!-- Injected dots -->
+          </div>
+          <div class="slide-actions">
+            <button class="btn btn-secondary" id="btnFullscreen" title="Toàn màn hình (F)">
+              <i class="fa-solid fa-expand"></i> Phóng to
+            </button>
+          </div>
+        </div>
+
+        <!-- Slide Stage (Viewport) -->
+        <div class="slide-stage" id="slideStage">
+          
+          <!-- SLIDE 1: INTRO -->
+          <div class="slide active" data-slide-index="0" data-cat="Giới Thiệu Đề Tài">
+            <div class="slide-content intro-slide">
+              <div class="hero-badge"><i class="fa-solid fa-rocket"></i> MINI PROJECT BẢO VỆ ĐỒ ÁN SCRUM</div>
+              <h2 class="slide-title-hero">XÂY DỰNG PRODUCT BACKLOG & KẾ HOẠCH SPRINT CHO DỰ ÁN MOTOGO</h2>
+              <p class="slide-subtitle">Nền tảng thuê xe máy tự lái thông minh kết nối du khách & đối tác cửa hàng địa phương (Vũng Tàu & Đà Nẵng)</p>
+              
+              <div class="intro-grid">
+                <div class="intro-card">
+                  <div class="intro-icon"><i class="fa-solid fa-user-tie"></i></div>
+                  <h4>Sinh viên thực hiện</h4>
+                  <p class="highlight-text">Đỗ Tiến Nam</p>
+                  <span class="sub-text">Mã SV: B25DTCN117 &bull; Lớp: CNTT3</span>
+                </div>
+                <div class="intro-card">
+                  <div class="intro-icon"><i class="fa-solid fa-users-gear"></i></div>
+                  <h4>Mô hình Scrum Team</h4>
+                  <p class="highlight-text" style="font-size: 1.15rem;">PO &bull; SM &bull; Dev Team</p>
+                  <span class="sub-text">3 vai trò thực thi đầy đủ</span>
+                </div>
+                <div class="intro-card">
+                  <div class="intro-icon"><i class="fa-solid fa-bullseye"></i></div>
+                  <h4>Chuẩn 8 Hạng Mục</h4>
+                  <p class="highlight-text" style="font-size: 1.1rem;">INVEST &bull; MoSCoW &bull; BDD</p>
+                  <span class="sub-text">Đáp ứng 100% tiêu chí đề bài</span>
+                </div>
+              </div>
+
+              <div class="intro-notice">
+                <i class="fa-solid fa-keyboard"></i> Phím <strong>&larr; / &rarr;</strong> chuyển slide &bull; Phím <strong>F</strong> phóng to &bull; Nhấp thẻ để xem chi tiết
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 2: HẠNG MỤC 1 - EPIC & FEATURE -->
+          <div class="slide" data-slide-index="1" data-cat="Hạng Mục 1: Phân Rã Epic & Feature">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-1"></i> Hạng Mục 1</span>
+                <h2>Phân Rã Yêu Cầu: Epic &ndash; Feature &ndash; User Story</h2>
+                <p>3 Epic hướng giá trị nghiệp vụ (Business-driven) &bull; 6 Feature bao phủ đầy đủ mã yêu cầu FR/BR</p>
+              </div>
+
+              <div class="epics-display-grid">
+                <!-- Epic 1 -->
+                <div class="epic-box epic-box-1">
+                  <div class="epic-header">
+                    <span class="epic-badge">EPIC-01</span>
+                    <h3>Tìm kiếm & Giữ chỗ xe tức thì</h3>
+                  </div>
+                  <div class="epic-body">
+                    <p class="biz-val"><strong>Giá trị cốt lõi:</strong> Tra cứu nhanh &lt; 2 phút, khóa giữ xe tức thì 30p tránh hết xe dịp cao điểm.</p>
+                    <div class="feature-sublist">
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-01</span>
+                        <div><strong>Tìm & Lọc xe đa tiêu chí</strong> (FR-01, FR-02)</div>
+                      </div>
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-02</span>
+                        <div><strong>Khóa giữ xe 30 phút</strong> (FR-03, FR-04, BR-01)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Epic 2 -->
+                <div class="epic-box epic-box-2">
+                  <div class="epic-header">
+                    <span class="epic-badge">EPIC-02</span>
+                    <h3>Quản lý kho xe & Chống trùng lịch</h3>
+                  </div>
+                  <div class="epic-body">
+                    <p class="biz-val"><strong>Giá trị cốt lõi:</strong> Kiểm soát 100% tình trạng kho xe, chặn triệt để trùng lịch xe giao cho khách.</p>
+                    <div class="feature-sublist">
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-03</span>
+                        <div><strong>Lịch biểu xe chống trùng</strong> (FR-05, FR-06, BR-02)</div>
+                      </div>
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-04</span>
+                        <div><strong>Duyệt đơn đặt tức thời</strong> (FR-07, FR-08)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Epic 3 -->
+                <div class="epic-box epic-box-3">
+                  <div class="epic-header">
+                    <span class="epic-badge">EPIC-03</span>
+                    <h3>Minh bạch giao nhận & Bảo vệ tài sản</h3>
+                  </div>
+                  <div class="epic-body">
+                    <p class="biz-val"><strong>Giá trị cốt lõi:</strong> Triệt tiêu tranh chấp trầy xước nhờ bằng chứng 4 góc ảnh & hợp đồng số hóa.</p>
+                    <div class="feature-sublist">
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-05</span>
+                        <div><strong>Biên bản số hóa 4 góc ảnh</strong> (FR-09, FR-10, BR-03)</div>
+                      </div>
+                      <div class="feat-item">
+                        <span class="feat-tag">FEAT-06</span>
+                        <div><strong>Nghiệm thu & Quyết toán cọc</strong> (FR-11, FR-12, BR-04)</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-footer-tip">
+                <i class="fa-solid fa-check-double"></i> <strong>Truy vết phân cấp:</strong> 1 Epic &rarr; &ge; 2 Feature &rarr; Các User Story con có mã truy vết FR/BR trực tiếp.
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 3: HẠNG MỤC 2 - USER STORIES -->
+          <div class="slide" data-slide-index="2" data-cat="Hạng Mục 2: Danh Sách User Story">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-2"></i> Hạng Mục 2</span>
+                <h2>Danh Sách 10 User Story Chuẩn Format & Truy Vết</h2>
+                <p>Format: <em>Là [Ai] &bull; Muốn [Hành động] &bull; Để [Lợi ích]</em> &bull; Độ dài &le; 2 dòng &bull; Truy vết mã FR/BR</p>
+              </div>
+
+              <div class="table-responsive">
+                <table class="presentation-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 70px;">Mã</th>
+                      <th style="width: 125px;">Vai trò</th>
+                      <th>Mục tiêu & Lợi ích cốt lõi của User Story</th>
+                      <th style="width: 110px;">Truy vết</th>
+                      <th style="width: 85px;">MoSCoW</th>
+                      <th style="width: 55px;">SP</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge-code">US-01</span></td>
+                      <td><span class="role-badge role-customer">Khách thuê</span></td>
+                      <td><strong>Tìm kiếm xe</strong> theo giờ & địa điểm (VT/ĐN) &rarr; <em>Chọn xe khớp lịch trình</em></td>
+                      <td><code>FR-01</code></td>
+                      <td><span class="moscow-badge tag-should">Should</span></td>
+                      <td><strong>3</strong></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td><span class="badge-code">US-02</span></td>
+                      <td><span class="role-badge role-customer">Khách thuê</span></td>
+                      <td><strong>Khóa giữ xe 30 phút</strong> khi cọc &rarr; <em>Tránh bị người khác đặt mất xe</em></td>
+                      <td><code>FR-03, BR-01</code></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td><strong>5</strong></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td><span class="badge-code">US-03</span></td>
+                      <td><span class="role-badge role-owner">Chủ xe</span></td>
+                      <td><strong>Cập nhật trạng thái & chặn trùng lịch</strong> &rarr; <em>Đảm bảo 100% có xe giao</em></td>
+                      <td><code>FR-05, BR-02</code></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td><strong>5</strong></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td><span class="badge-code">US-04</span></td>
+                      <td><span class="role-badge role-owner">Chủ xe</span></td>
+                      <td><strong>Nhận thông báo & duyệt đơn tức thì</strong> &rarr; <em>Chủ động chuẩn bị xe</em></td>
+                      <td><code>FR-07</code></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-05</span></td>
+                      <td><span class="role-badge role-staff">Nhân viên</span></td>
+                      <td><strong>Chụp 4 góc ảnh & lập biên bản số</strong> &rarr; <em>Làm bằng chứng pháp lý bàn giao</em></td>
+                      <td><code>FR-09, BR-03</code></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td><strong>5</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-06</span></td>
+                      <td><span class="role-badge role-customer">Khách thuê</span></td>
+                      <td><strong>Ký xác nhận điện tử trên điện thoại</strong> &rarr; <em>Hợp đồng minh bạch hai bên</em></td>
+                      <td><code>FR-10</code></td>
+                      <td><span class="moscow-badge tag-should">Should</span></td>
+                      <td><strong>3</strong></td>
+                    </tr>
+                    <tr class="highlight-row">
+                      <td><span class="badge-code">US-07</span></td>
+                      <td><span class="role-badge role-customer">Khách thuê</span></td>
+                      <td><strong>Thanh toán cọc trực tuyến an toàn</strong> &rarr; <em>Hoàn tất đặt giữ chỗ tức thì</em></td>
+                      <td><code>FR-04</code></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td><strong>5</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-08</span></td>
+                      <td><span class="role-badge role-staff">Nhân viên</span></td>
+                      <td><strong>Đối chiếu ảnh lúc trả xe & hoàn cọc</strong> &rarr; <em>Nghiệm thu nhanh, không tranh cãi</em></td>
+                      <td><code>FR-11, BR-04</code></td>
+                      <td><span class="moscow-badge tag-should">Should</span></td>
+                      <td><strong>3</strong></td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-09</span></td>
+                      <td><span class="role-badge role-admin">Vận hành</span></td>
+                      <td><strong>Xem báo cáo công suất lấp đầy kho xe</strong> &rarr; <em>Kịp thời điều phối & mở rộng đối tác</em></td>
+                      <td><code>FR-13</code></td>
+                      <td><span class="moscow-badge tag-could">Could</span></td>
+                      <td><strong>5</strong></td>
+                    </tr>
+                    <tr class="wont-row">
+                      <td><span class="badge-code">US-10</span></td>
+                      <td><span class="role-badge role-customer">Khách thuê</span></td>
+                      <td><strong>Xem gợi ý cung đường phượt theo xe</strong> &rarr; <em>Tăng trải nghiệm du lịch (ngoài MVP)</em></td>
+                      <td><code>FR-14</code></td>
+                      <td><span class="moscow-badge tag-wont">Won't</span></td>
+                      <td><strong>8</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- SLIDE 4: HẠNG MỤC 3 - INVEST -->
+          <div class="slide" data-slide-index="3" data-cat="Hạng Mục 3: Đánh Giá INVEST">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-3"></i> Hạng Mục 3</span>
+                <h2>Đánh Giá INVEST & Tái Cấu Trúc Story Vi Phạm</h2>
+                <p>Chấm 6 tiêu chí nhị phân &bull; Minh họa tái cấu trúc Story ban đầu bị gộp chức năng</p>
+              </div>
+
+              <div class="invest-grid">
+                <!-- Evaluation Table -->
+                <div class="invest-table-card">
+                  <h3><i class="fa-solid fa-clipboard-check"></i> Đánh giá 3 Story theo 6 tiêu chí INVEST</h3>
+                  <table class="presentation-table compact">
+                    <thead>
+                      <tr>
+                        <th>Tiêu chí</th>
+                        <th>US-02 (Giữ xe 30p)</th>
+                        <th>US-05 (Ảnh 4 góc)</th>
+                        <th>US-X (Story lỗi ban đầu)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>I</strong> (Independent)</td>
+                        <td><span class="tag-pass">Đạt</span> Độc lập luồng cọc</td>
+                        <td><span class="tag-pass">Đạt</span> Độc lập hợp đồng số</td>
+                        <td><span class="tag-fail">Trượt</span> Gộp 4 chức năng dính nhau</td>
+                      </tr>
+                      <tr>
+                        <td><strong>N</strong> (Negotiable)</td>
+                        <td><span class="tag-pass">Đạt</span> Linh hoạt giữ 15-30p</td>
+                        <td><span class="tag-pass">Đạt</span> Linh hoạt chụp 4-6 ảnh</td>
+                        <td><span class="tag-pass">Đạt</span> Có thể thương lượng</td>
+                      </tr>
+                      <tr>
+                        <td><strong>V</strong> (Valuable)</td>
+                        <td><span class="tag-pass">Đạt</span> Khách giữ được xe</td>
+                        <td><span class="tag-pass">Đạt</span> Bằng chứng minh bạch</td>
+                        <td><span class="tag-pass">Đạt</span> Có giá trị người dùng</td>
+                      </tr>
+                      <tr>
+                        <td><strong>E</strong> (Estimable)</td>
+                        <td><span class="tag-pass">Đạt</span> Rõ kỹ thuật (5 SP)</td>
+                        <td><span class="tag-pass">Đạt</span> Rõ cơ chế ảnh (5 SP)</td>
+                        <td><span class="tag-fail">Trượt</span> Quá mơ hồ để tính SP</td>
+                      </tr>
+                      <tr>
+                        <td><strong>S</strong> (Small)</td>
+                        <td><span class="tag-pass">Đạt</span> Vừa vặn 1 Sprint</td>
+                        <td><span class="tag-pass">Đạt</span> Vừa vặn 1 Sprint</td>
+                        <td><span class="tag-fail">Trượt</span> Là một Epic (&gt; 20 SP)</td>
+                      </tr>
+                      <tr>
+                        <td><strong>T</strong> (Testable)</td>
+                        <td><span class="tag-pass">Đạt</span> Test qua timer/status</td>
+                        <td><span class="tag-pass">Đạt</span> Test đếm đủ 4 ảnh</td>
+                        <td><span class="tag-fail">Trượt</span> Quá nhiều luồng phụ thuộc</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Before & After Card -->
+                <div class="refactor-card">
+                  <h3><i class="fa-solid fa-code-compare"></i> Minh Họa Tái Cấu Trúc (Refactoring)</h3>
+                  
+                  <div class="diff-box diff-before">
+                    <div class="diff-header"><i class="fa-solid fa-triangle-exclamation"></i> TRƯỚC: STORY LỖI (US-X &bull; 21 SP)</div>
+                    <p class="diff-content">"Khách tìm kiếm xe theo ngày giờ, đặt giữ chỗ, thanh toán tiền cọc ví điện tử và nhận bản đồ chỉ đường tới cửa hàng..."</p>
+                    <div class="diff-reason">
+                      <strong>Lý do vi phạm:</strong> Vi phạm <strong>Independent</strong> (dính tìm kiếm, cọc, maps) và <strong>Small</strong> (quá đồ sộ &gt; 20 SP, vượt quá 1 Sprint).
+                    </div>
+                  </div>
+
+                  <div class="diff-arrow"><i class="fa-solid fa-arrow-down"></i> TÁCH THÀNH CÁC STORY ĐỘC LẬP</div>
+
+                  <div class="diff-box diff-after">
+                    <div class="diff-header"><i class="fa-solid fa-circle-check"></i> SAU: CHUẨN INVEST (US-02 &bull; 5 SP)</div>
+                    <p class="diff-content"><strong>US-02:</strong> "Là khách thuê, tôi muốn giữ chỗ xe vừa chọn trong 30 phút để không bị người khác đặt mất trong lúc thanh toán cọc."</p>
+                    <div class="diff-explanation">
+                      <strong>Đã sửa:</strong> Tách <strong>US-01</strong> (Tìm xe), <strong>US-07</strong> (Thanh toán cọc), bỏ bản đồ (dời sau). US-02 tập trung cốt lõi giữ chỗ &rarr; <strong>Đạt 6/6 INVEST</strong>.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SLIDE 5: HẠNG MỤC 4 - ACCEPTANCE CRITERIA -->
+          <div class="slide" data-slide-index="4" data-cat="Hạng Mục 4: Acceptance Criteria">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-4"></i> Hạng Mục 4</span>
+                <h2>Acceptance Criteria: Given &ndash; When &ndash; Then</h2>
+                <p>3 Story Must cốt lõi &bull; Luồng chính + Ngoại lệ &bull; Ràng buộc quy tắc nghiệp vụ BR</p>
+              </div>
+
+              <div class="ac-cards-container">
+                <!-- AC 1: US-02 -->
+                <div class="ac-story-card">
+                  <div class="ac-story-header">
+                    <span class="badge-code">US-02</span>
+                    <h4>Giữ chỗ xe 30 phút (FR-03, BR-01 | 5 SP)</h4>
+                  </div>
+                  <div class="ac-list">
+                    <div class="ac-item">
+                      <div class="ac-type main-flow"><i class="fa-solid fa-circle-play"></i> AC-01: Luồng chính (BR-01)</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Khách chọn xe trống & bấm "Đặt giữ chỗ"</p>
+                        <p><strong>When:</strong> Hệ thống tạo đơn giữ chỗ thành công</p>
+                        <p><strong>Then:</strong> Khóa giữ xe tối đa <strong>30 phút (BR-01)</strong> & ẩn khỏi kết quả tìm kiếm của khách khác</p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type alt-flow"><i class="fa-solid fa-clock"></i> AC-02: Ngoại lệ (Hết hạn cọc)</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Đơn đang đếm ngược trong 30 phút</p>
+                        <p><strong>When:</strong> Quá 30 phút khách <strong>chưa thanh toán cọc</strong></p>
+                        <p><strong>Then:</strong> Tự động hủy đơn & mở lại trạng thái <strong>"Sẵn sàng"</strong> cho xe</p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type alt-flow"><i class="fa-solid fa-bolt"></i> AC-03: Xung đột đồng thời</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> 2 khách cùng bấm giữ 1 xe tại một thời điểm</p>
+                        <p><strong>When:</strong> Khách A bấm trước (&Delta;t &gt; 0)</p>
+                        <p><strong>Then:</strong> Khách B nhận báo <em>"Xe vừa có người đặt"</em> & gợi ý xe tương đương</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AC 2: US-03 -->
+                <div class="ac-story-card">
+                  <div class="ac-story-header">
+                    <span class="badge-code">US-03</span>
+                    <h4>Quản lý kho xe chống trùng (FR-05, BR-02 | 5 SP)</h4>
+                  </div>
+                  <div class="ac-list">
+                    <div class="ac-item">
+                      <div class="ac-type main-flow"><i class="fa-solid fa-circle-play"></i> AC-01: Luồng chính (BR-02)</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Đơn thuê từ ngày T1 &rarr; T2 được chủ xe xác nhận</p>
+                        <p><strong>When:</strong> Hệ thống ghi nhận trạng thái đơn hợp lệ</p>
+                        <p><strong>Then:</strong> Tự động khóa lịch xe T1 &rarr; T2 kèm <strong>2h đệm vệ sinh (BR-02)</strong></p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type alt-flow"><i class="fa-solid fa-wrench"></i> AC-02: Xe đột xuất bảo dưỡng</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Xe phát sinh hư hỏng cần bảo dưỡng gấp</p>
+                        <p><strong>When:</strong> Chủ xe chuyển trạng thái sang "Bảo dưỡng"</p>
+                        <p><strong>Then:</strong> Chặn đặt lịch mới ngay lập tức & cảnh báo các đơn tương lai</p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type main-flow"><i class="fa-solid fa-eye-slash"></i> AC-03: Lọc xe khi tìm kiếm</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Khách tìm xe trong khoảng thời gian đã bị khóa</p>
+                        <p><strong>When:</strong> Hệ thống truy vấn kho xe khả dụng</p>
+                        <p><strong>Then:</strong> <strong>Tuyệt đối không hiển thị</strong> chiếc xe đang bận trong kết quả</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- AC 3: US-05 -->
+                <div class="ac-story-card">
+                  <div class="ac-story-header">
+                    <span class="badge-code">US-05</span>
+                    <h4>Biên bản giao xe 4 góc ảnh (FR-09, BR-03 | 5 SP)</h4>
+                  </div>
+                  <div class="ac-list">
+                    <div class="ac-item">
+                      <div class="ac-type main-flow"><i class="fa-solid fa-circle-play"></i> AC-01: Luồng chính (BR-03)</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Nhân viên tiến hành bàn giao xe tại cửa hàng</p>
+                        <p><strong>When:</strong> Chụp đủ <strong>4 ảnh</strong> (đầu, đuôi, sườn trái, sườn phải)</p>
+                        <p><strong>Then:</strong> Biên bản số được tạo kèm <strong>Watermark GPS & thời gian (BR-03)</strong></p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type alt-flow"><i class="fa-solid fa-triangle-exclamation"></i> AC-02: Thiếu ảnh bắt buộc</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Đang tạo biên bản bàn giao</p>
+                        <p><strong>When:</strong> Mới upload &lt; 4 ảnh mà bấm "Hoàn tất"</p>
+                        <p><strong>Then:</strong> Chặn lưu, báo lỗi <em>"Bắt buộc đủ 4 góc theo BR-03"</em></p>
+                      </div>
+                    </div>
+                    <div class="ac-item">
+                      <div class="ac-type alt-flow"><i class="fa-solid fa-wifi"></i> AC-03: Ngoại lệ mất mạng</div>
+                      <div class="ac-spec">
+                        <p><strong>Given:</strong> Nhân viên chụp ảnh tại hầm xe bị mất sóng</p>
+                        <p><strong>When:</strong> Bấm lưu tạm biên bản giao xe</p>
+                        <p><strong>Then:</strong> Lưu vào <strong>Offline Cache</strong> & tự đồng bộ khi có mạng trở lại</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SLIDE 6: HẠNG MỤC 5 - DEFINITION OF DONE -->
+          <div class="slide" data-slide-index="5" data-cat="Hạng Mục 5: Definition of Done">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-5"></i> Hạng Mục 5</span>
+                <h2>Definition of Done (DoD) & Phân Biệt Với AC</h2>
+                <p>5 điều kiện kiểm chứng Có/Không &bull; So sánh bản chất & ví dụ đối chiếu thực tế</p>
+              </div>
+
+              <div class="dod-layout">
+                <!-- 5 Conditions -->
+                <div class="dod-card">
+                  <h3><i class="fa-solid fa-list-check"></i> Bộ 5 Điều Kiện DoD Chung Cho Mọi Story</h3>
+                  <div class="checklist">
+                    <div class="check-item">
+                      <div class="check-badge">Có/Không</div>
+                      <div>
+                        <strong>1. Peer Code Review:</strong>
+                        <p>&ge; 1 Dev review chéo &bull; 0 lỗi SonarLint &bull; Merge nhánh `develop`</p>
+                      </div>
+                    </div>
+                    <div class="check-item">
+                      <div class="check-badge">Có/Không</div>
+                      <div>
+                        <strong>2. Unit Test Coverage &ge; 80%:</strong>
+                        <p>100% test case tự động pass &bull; Độ bao phủ dòng code &ge; 80%</p>
+                      </div>
+                    </div>
+                    <div class="check-item">
+                      <div class="check-badge">Có/Không</div>
+                      <div>
+                        <strong>3. Acceptance Criteria Passed:</strong>
+                        <p>PO nghiệm thu pass 100% kịch bản Given-When-Then trên Staging</p>
+                      </div>
+                    </div>
+                    <div class="check-item">
+                      <div class="check-badge">Có/Không</div>
+                      <div>
+                        <strong>4. Zero Blocker Bugs on Staging:</strong>
+                        <p>Deploy CI/CD thành công &bull; Không còn bug Blocker/Critical</p>
+                      </div>
+                    </div>
+                    <div class="check-item">
+                      <div class="check-badge">Có/Không</div>
+                      <div>
+                        <strong>5. Tài Liệu Hóa Hoàn Tất:</strong>
+                        <p>Cập nhật đầy đủ Swagger API docs & Release Notes tính năng</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- DoD vs AC Comparison -->
+                <div class="dod-vs-ac-card">
+                  <h3><i class="fa-solid fa-scale-balanced"></i> Phân Biệt DoD vs Acceptance Criteria</h3>
+                  <table class="presentation-table compact">
+                    <thead>
+                      <tr>
+                        <th>Tiêu chí</th>
+                        <th>Acceptance Criteria (AC)</th>
+                        <th>Definition of Done (DoD)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Bản chất</strong></td>
+                        <td>Riêng biệt cho <em>từng User Story</em></td>
+                        <td>Chung cho <em>toàn bộ Story</em></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Mục tiêu</strong></td>
+                        <td>Làm <strong>đúng yêu cầu nghiệp vụ</strong></td>
+                        <td>Đạt <strong>chuẩn chất lượng kỹ thuật</strong></td>
+                      </tr>
+                      <tr>
+                        <td><strong>Người duyệt</strong></td>
+                        <td>Product Owner</td>
+                        <td>Toàn bộ Scrum Team</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Thời điểm sửa</strong></td>
+                        <td>Linh hoạt trong Refinement</td>
+                        <td>Cố định Sprint, cải tiến ở Retro</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="example-highlight">
+                    <h4><i class="fa-solid fa-lightbulb"></i> Ví Dụ Đối Chiếu Trên US-02 (Giữ chỗ 30p):</h4>
+                    <ul>
+                      <li><strong>AC (Nghiệp vụ):</strong> Đúng 30p chưa cọc thì tự hủy đơn & mở lại xe trên bản đồ.</li>
+                      <li><strong>DoD (Kỹ thuật):</strong> API timer đạt Unit Test 85%, review chéo xong, deploy Staging không lỗi.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SLIDE 7: HẠNG MỤC 6 - MOSCOW -->
+          <div class="slide" data-slide-index="6" data-cat="Hạng Mục 6: MoSCoW Prioritization">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-6"></i> Hạng Mục 6</span>
+                <h2>Ưu Tiên MoSCoW & Giải Trình Mục Tiêu Nghiệp Vụ</h2>
+                <p>Tỷ lệ Must = 50% (&le; 50% trần) &bull; Gắn liền 3 mục tiêu kinh doanh SRS &bull; Lý do xếp Won't rõ ràng</p>
+              </div>
+
+              <div class="moscow-summary-bar">
+                <div class="moscow-stat-item stat-must">
+                  <span class="num">5/10 (50%)</span>
+                  <span class="lbl">Must Have (&le; 50%)</span>
+                </div>
+                <div class="moscow-stat-item stat-should">
+                  <span class="num">3/10 (30%)</span>
+                  <span class="lbl">Should Have</span>
+                </div>
+                <div class="moscow-stat-item stat-could">
+                  <span class="num">1/10 (10%)</span>
+                  <span class="lbl">Could Have</span>
+                </div>
+                <div class="moscow-stat-item stat-wont">
+                  <span class="num">1/10 (10%)</span>
+                  <span class="lbl">Won't Have (v1)</span>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="presentation-table">
+                  <thead>
+                    <tr>
+                      <th style="width: 75px;">Mã</th>
+                      <th style="width: 85px;">MoSCoW</th>
+                      <th style="width: 210px;">User Story</th>
+                      <th style="width: 170px;">Mục tiêu SRS</th>
+                      <th>Giải trình lý do xếp hạng ưu tiên</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="badge-code">US-02</span></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td>Khách giữ chỗ xe 30 phút</td>
+                      <td><strong>Mục tiêu 1:</strong> Khách thuê được xe đúng hẹn</td>
+                      <td>Tránh bị người khác cướp xe lúc đang cọc; bảo vệ tỷ lệ chuyển đổi đơn hàng.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-03</span></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td>Khóa lịch kho chống trùng xe</td>
+                      <td><strong>Mục tiêu 2:</strong> Giảm 95% xung đột trùng lịch</td>
+                      <td>Chặn "tử huyệt" thiếu xe giao cho khách; điều kiện tiên quyết để vận hành.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-05</span></td>
+                      <td><span class="moscow-badge tag-must">Must</span></td>
+                      <td>Chụp 4 góc ảnh biên bản số</td>
+                      <td><strong>Mục tiêu 3:</strong> Minh bạch hiện trạng xe</td>
+                      <td>Căn cứ pháp lý duy nhất chống tranh chấp trầy xước và giải quyết hoàn cọc.</td>
+                    </tr>
+                    <tr>
+                      <td><span class="badge-code">US-06</span></td>
+                      <td><span class="moscow-badge tag-should">Should</span></td>
+                      <td>Khách ký số trên điện thoại</td>
+                      <td><strong>Mục tiêu 3:</strong> Minh bạch hóa giao nhận</td>
+                      <td>Quan trọng nhưng có <em>giải pháp tạm (Workaround)</em>: Ký biên bản giấy ở Sprint 1.</td>
+                    </tr>
+                    <tr class="wont-row">
+                      <td><span class="badge-code">US-10</span></td>
+                      <td><span class="moscow-badge tag-wont">Won't</span></td>
+                      <td>Gợi ý cung đường phượt du lịch</td>
+                      <td><strong>Ngoài phạm vi MVP</strong></td>
+                      <td>Không phục vụ luồng thuê xe cốt lõi; dời sang Release 3 để tập trung tài nguyên.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SLIDE 8: HẠNG MỤC 7 - STORY POINT -->
+          <div class="slide" data-slide-index="7" data-cat="Hạng Mục 7: Ước Lượng Story Point">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-7"></i> Hạng Mục 7</span>
+                <h2>Ước Lượng Story Point (Fibonacci) & Kỹ Thuật Tách Story</h2>
+                <p>Story chuẩn: US-01 (3 SP) &bull; So sánh tương đối dựa trên độ phức tạp &bull; Xử lý story &gt; 13 SP</p>
+              </div>
+
+              <div class="sp-layout">
+                <div class="sp-table-box">
+                  <h3><i class="fa-solid fa-calculator"></i> So sánh tương đối với Story chuẩn US-01 (3 SP)</h3>
+                  <table class="presentation-table compact">
+                    <thead>
+                      <tr>
+                        <th style="width: 70px;">Mã</th>
+                        <th>Story</th>
+                        <th style="width: 70px;">Điểm</th>
+                        <th>Căn cứ so sánh tương đối</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="baseline-row">
+                        <td><span class="badge-code">US-01</span></td>
+                        <td>Tìm kiếm xe cơ bản</td>
+                        <td><span class="sp-badge">3 SP</span></td>
+                        <td><strong>BASELINE:</strong> Form lọc tiêu chuẩn, query DB cơ bản, rủi ro thấp.</td>
+                      </tr>
+                      <tr>
+                        <td><span class="badge-code">US-02</span></td>
+                        <td>Giữ chỗ xe 30 phút</td>
+                        <td><span class="sp-badge">5 SP</span></td>
+                        <td>Cần Redis Distributed Lock & Background Job đếm ngược.</td>
+                      </tr>
+                      <tr>
+                        <td><span class="badge-code">US-03</span></td>
+                        <td>Chống trùng lịch kho</td>
+                        <td><span class="sp-badge">5 SP</span></td>
+                        <td>Thuật toán quét trùng khoảng thời gian & 2h đệm vệ sinh.</td>
+                      </tr>
+                      <tr>
+                        <td><span class="badge-code">US-04</span></td>
+                        <td>Chủ xe duyệt đơn</td>
+                        <td><span class="sp-badge">3 SP</span></td>
+                        <td>Tương đương US-01: UI danh sách đơn + Push Notification.</td>
+                      </tr>
+                      <tr>
+                        <td><span class="badge-code">US-05</span></td>
+                        <td>Chụp ảnh 4 góc xe</td>
+                        <td><span class="sp-badge">5 SP</span></td>
+                        <td>Nén ảnh mobile + Watermark GPS/thời gian + Upload AWS S3.</td>
+                      </tr>
+                      <tr>
+                        <td><span class="badge-code">US-07</span></td>
+                        <td>Thanh toán cọc online</td>
+                        <td><span class="sp-badge">5 SP</span></td>
+                        <td>Tích hợp cổng VNPAY/MoMo + Webhook bảo mật giao dịch.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Splitting Demo -->
+                <div class="sp-split-box">
+                  <h3><i class="fa-solid fa-scissors"></i> Xử Lý Story Vượt Ngưỡng 13 SP</h3>
+                  
+                  <div class="split-card-orig">
+                    <div class="split-badge-bad">Story ban đầu: 21 SP (&gt; 13 SP - VƯỢT QUÁ 1 SPRINT)</div>
+                    <p class="story-desc"><strong>US-RAW:</strong> "Lập biên bản giao xe số hóa kèm 4 ảnh, ký số điện tử và tự động hoàn trả cọc lúc trả xe."</p>
+                    <p class="split-critique"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Lý do quá tải:</strong> Gộp cả luồng chụp ảnh, ký số và đối chiếu hoàn cọc &rarr; Quá nhiều rủi ro kỹ thuật.</p>
+                  </div>
+
+                  <div class="split-result-grid">
+                    <div class="split-child">
+                      <span class="sp-child-badge">TÁCH THÀNH US-05 (5 SP) &bull; SPRINT 1 (MUST)</span>
+                      <p>Chụp ảnh 4 góc xe & lập biên bản bàn giao ban đầu.</p>
+                    </div>
+                    <div class="split-child">
+                      <span class="sp-child-badge">TÁCH THÀNH US-06 (3 SP) &bull; SPRINT 2 (SHOULD)</span>
+                      <p>Khách hàng ký xác nhận số trên điện thoại.</p>
+                    </div>
+                    <div class="split-child">
+                      <span class="sp-child-badge">TÁCH THÀNH US-08 (3 SP) &bull; SPRINT 2 (SHOULD)</span>
+                      <p>Đối chiếu ảnh nghiệm thu & hoàn tiền cọc lúc trả xe.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SLIDE 9: HẠNG MỤC 8 - KẾ HOẠCH SPRINT 1 -->
+          <div class="slide" data-slide-index="8" data-cat="Hạng Mục 8: Kế Hoạch Sprint 1">
+            <div class="slide-content">
+              <div class="slide-header-box">
+                <span class="cat-pill"><i class="fa-solid fa-8"></i> Hạng Mục 8</span>
+                <h2>Kế Hoạch Sprint 1: Goal, Capacity & Phân Rã Task</h2>
+                <p>Sprint Goal 1 câu mang giá trị nghiệp vụ &bull; Capacity trừ buffer 20% &bull; Khớp Velocity 18 SP</p>
+              </div>
+
+              <!-- Goal Box -->
+              <div class="sprint-goal-banner">
+                <div class="goal-label"><i class="fa-solid fa-bullseye"></i> SPRINT 1 GOAL:</div>
+                <div class="goal-text">"Cung cấp giải pháp đặt giữ chỗ 30 phút và khóa lịch chống trùng kho xe tại Vũng Tàu & Đà Nẵng, giúp du khách giữ được xe và cửa hàng triệt tiêu 100% trùng lịch."</div>
+              </div>
+
+              <div class="sprint-grid">
+                <!-- Capacity Card -->
+                <div class="capacity-card">
+                  <h3><i class="fa-solid fa-users"></i> Bảng Tính Capacity Nhóm (3 Devs &bull; 2 Tuần)</h3>
+                  <table class="presentation-table compact">
+                    <thead>
+                      <tr>
+                        <th>Thông số</th>
+                        <th>Công thức</th>
+                        <th>Giá trị thực</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Quy mô Scrum Team</td>
+                        <td>PO (kiêm test), SM (kiêm dev), Lead Dev</td>
+                        <td><strong>3 thành viên</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Độ dài Sprint</td>
+                        <td>2 tuần làm việc tiêu chuẩn</td>
+                        <td><strong>10 ngày</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Giờ tập trung / ngày</td>
+                        <td>Năng suất thực tế</td>
+                        <td><strong>6h / người / ngày</strong></td>
+                      </tr>
+                      <tr>
+                        <td>Tổng giờ gộp (Gross)</td>
+                        <td>3 người &times; 10 ngày &times; 6 giờ</td>
+                        <td><strong>180 giờ</strong></td>
+                      </tr>
+                      <tr class="buffer-row">
+                        <td>Buffer rủi ro & họp (20%)</td>
+                        <td>180 giờ &times; 20%</td>
+                        <td><strong>- 36 giờ</strong></td>
+                      </tr>
+                      <tr class="net-row">
+                        <td><strong>Capacity Khả Dụng (Net)</strong></td>
+                        <td>180 - 36 giờ</td>
+                        <td><span class="badge-capacity">144 GIỜ NET</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="velocity-box">
+                    <strong>Velocity:</strong> 18 SP &bull; <strong>Sprint 1 Backlog:</strong> 4 Story Must (US-02, US-03, US-04, US-07) = <strong>18 SP (Khớp 100%)</strong>
+                  </div>
+                </div>
+
+                <!-- Task Breakdown -->
+                <div class="tasks-card">
+                  <h3><i class="fa-solid fa-list-ol"></i> Phân Rã Task Kỹ Thuật Cho US-02 (5 SP &bull; Tổng: 36h)</h3>
+                  <table class="presentation-table compact">
+                    <thead>
+                      <tr>
+                        <th style="width: 75px;">Mã</th>
+                        <th>Nội dung công việc kỹ thuật</th>
+                        <th style="width: 90px;">Vai trò</th>
+                        <th style="width: 65px;">Ước tính</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><code>TASK-2.1</code></td>
+                        <td>UI đồng hồ đếm ngược 30p & modal cảnh báo giữ chỗ</td>
+                        <td>Frontend</td>
+                        <td><strong>6h</strong></td>
+                      </tr>
+                      <tr>
+                        <td><code>TASK-2.2</code></td>
+                        <td>API Redis Distributed Lock khóa xe thời gian thực</td>
+                        <td>Backend</td>
+                        <td><strong>10h</strong></td>
+                      </tr>
+                      <tr>
+                        <td><code>TASK-2.3</code></td>
+                        <td>Background Worker tự hủy đơn & mở lại xe sau 30p</td>
+                        <td>Backend</td>
+                        <td><strong>8h</strong></td>
+                      </tr>
+                      <tr>
+                        <td><code>TASK-2.4</code></td>
+                        <td>Unit & Integration Test luồng timeout giữ xe</td>
+                        <td>Fullstack</td>
+                        <td><strong>6h</strong></td>
+                      </tr>
+                      <tr>
+                        <td><code>TASK-2.5</code></td>
+                        <td>Kiểm thử nghiệm thu 3 kịch bản AC trên Staging</td>
+                        <td>QA / Tester</td>
+                        <td><strong>6h</strong></td>
+                      </tr>
+                      <tr class="sum-row">
+                        <td colspan="3"><strong>TỔNG SỐ GIỜ US-02:</strong></td>
+                        <td><span class="badge-capacity">36 GIỜ</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Slide Bottom Nav Bar -->
+        <div class="slide-bottom-bar">
+          <button class="btn btn-nav" id="btnPrevSlide"><i class="fa-solid fa-chevron-left"></i> Slide Trước</button>
+          <div class="slide-indicator" id="slideIndicator">Slide 1 / 9</div>
+          <button class="btn btn-nav btn-primary" id="btnNextSlide">Slide Tiếp Theo <i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: DEFENSE HUB (Q&A CHO BUỔI BẢO VỆ) ================= -->
+    <section class="view-panel" id="viewDefense">
+      <div class="defense-container">
+        <div class="defense-header">
+          <h2><i class="fa-solid fa-shield-halved"></i> Scrum Defense Hub &ndash; Kịch Bản Bảo Vệ Đồ Án Cho 3 Vai Trò</h2>
+          <p>Trang bị sẵn câu trả lời thuyết phục trước các câu hỏi chất vấn hóc búa của Giảng viên và Hội đồng bảo vệ.</p>
+        </div>
+
+        <div class="roles-tabs">
+          <button class="role-tab-btn active" data-role="po"><i class="fa-solid fa-user-tie"></i> Dành Cho Product Owner</button>
+          <button class="role-tab-btn" data-role="sm"><i class="fa-solid fa-people-arrows"></i> Dành Cho Scrum Master</button>
+          <button class="role-tab-btn" data-role="dev"><i class="fa-solid fa-laptop-code"></i> Dành Cho Development Team</button>
+        </div>
+
+        <!-- QA Toolbar -->
+        <div class="qa-toolbar">
+          <span class="qa-tip"><i class="fa-solid fa-lightbulb"></i> <strong>Chế độ ôn luyện bảo vệ:</strong> Nhấp vào câu hỏi để mở/ẩn đáp án thuyết phục.</span>
+          <button class="btn btn-secondary btn-sm" id="btnToggleAllQA" title="Mở hoặc thu gọn tất cả câu hỏi">
+            <i class="fa-solid fa-arrows-up-down"></i> <span id="toggleAllText">Mở tất cả</span>
+          </button>
+        </div>
+
+        <!-- PO Content -->
+        <div class="role-qa-panel active" id="qaPO">
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 1: Tại sao bạn chọn tỷ lệ Must Have đúng 50% mà không chọn nhiều hơn cho Sprint 1?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của PO:</strong> "Thưa Thầy/Cô, theo nguyên lý của MoSCoW, tỷ lệ Must Have không được vượt quá 50-60% tổng dung lượng Backlog để đảm bảo tính an toàn (Contingency) cho dự án. Nếu đặt quá nhiều Must Have, khi phát sinh rủi ro kỹ thuật hoặc biến động yêu cầu, Scrum Team sẽ không có dư địa để cắt giảm phạm vi mà bắt buộc phải kéo dài thời gian Sprint hoặc làm giảm chất lượng sản phẩm (phá vỡ Definition of Done). 50% Must Have đảm bảo Sprint 1 tập trung tuyệt đối vào giá trị sống còn (giữ chỗ xe & chống trùng lịch) mà vẫn khả thi."
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 2: Tại sao US-10 (Gợi ý cung đường phượt) lại xếp vào Won't Have mà không phải Could Have?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của PO:</strong> "Thưa Thầy/Cô, US-10 thuộc nhóm tính năng gia tăng trải nghiệm du lịch, không thuộc luồng nghiệp vụ thuê xe cốt lõi (Core Booking Flow) của phiên bản MVP. Nếu xếp vào Could Have, nhóm có thể bị phân tâm nguồn lực khi dư dả thời gian. Việc dứt khoát xếp Won't Have cho phiên bản đầu tiên giúp toàn đội có cam kết cao nhất vào việc giải quyết 3 nỗi đau lớn nhất: hết xe dịp lễ, trùng lịch của chủ cửa hàng và tranh chấp khi giao nhận xe."
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 3: Căn cứ nào để khẳng định các Epic không bị đặt tên theo module kỹ thuật?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của PO:</strong> "Nhóm hoàn toàn không đặt tên theo các lớp kỹ thuật như 'Module Database', 'Module Authentication' hay 'Module API'. Cả 3 Epic đều xuất phát từ góc nhìn giá trị người dùng cuối: Epic 1 là 'Tối ưu hóa tìm kiếm & giữ chỗ cho du khách', Epic 2 là 'Tối ưu vận hành kho xe cho chủ cửa hàng', Epic 3 là 'Minh bạch hóa giao nhận tài sản'. Cách đặt tên này thể hiện đúng tôn chỉ Value-driven của Agile."
+            </div>
+          </div>
+        </div>
+
+        <!-- SM Content -->
+        <div class="role-qa-panel" id="qaSM">
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 1: Vì sao nhóm phải trừ tới 20% thời gian Buffer trong bảng tính Capacity?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của SM:</strong> "Thưa Thầy/Cô, trong thực tế phát triển phần mềm, một thành viên không thể lập trình 100% thời gian trong ngày. Nhóm cần thời gian cho các sự kiện Scrum bắt buộc (Daily Scrum, Sprint Review, Sprint Retrospective), xử lý lỗi đột xuất, hỗ trợ lẫn nhau và chuyển đổi ngữ cảnh làm việc (Context Switching). Con số 20% buffer (36 giờ) là tiêu chuẩn vàng trong ngành để đảm bảo cam kết Sprint Goal có tính thực tế và an toàn tâm lý cho nhóm."
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 2: Nếu trong Sprint 1, một lập trình viên bị ốm hoặc gặp trở ngại thì Scrum Master giải quyết thế nào?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của SM:</strong> "Scrum Master sẽ tổ chức họp khẩn với Product Owner để xem xét tiến độ Burndown Chart. Nhờ hệ thống phân loại MoSCoW rõ ràng, nếu Velocity bị giảm, PO và Team sẽ ưu tiên hoàn thành các Story Must Have và chủ động đàm phán đưa các phần chưa hoàn thành quay trở lại Product Backlog, kiên quyết KHÔNG hạ thấp tiêu chí Definition of Done để chạy theo số lượng."
+            </div>
+          </div>
+        </div>
+
+        <!-- DEV Content -->
+        <div class="role-qa-panel" id="qaDEV">
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 1: Căn cứ vào đâu mà Dev Team chấm US-02 là 5 Story Point và US-01 là 3 Story Point?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của DEV:</strong> "Thưa Thầy/Cô, Story Point đo lường 3 yếu tố: Khối lượng công việc, Độ phức tạp và Độ rủi ro/bất định. US-01 là tìm kiếm cơ bản, chỉ gồm query DB thông thường nên nhóm lấy làm chuẩn 3 SP. Trong khi đó, US-02 (giữ chỗ 30 phút) có độ phức tạp cao hơn hẳn: phải xử lý đồng thời (Concurrency) bằng Redis Distributed Lock để chống 2 người cùng đặt 1 xe, kèm Background Worker tự động đếm ngược hủy đơn. Vì vậy chấm 5 SP là hoàn toàn cân xứng."
+            </div>
+          </div>
+
+          <div class="qa-item">
+            <div class="qa-question">
+              <span class="qa-q-text"><i class="fa-solid fa-circle-question"></i> Câu hỏi 2: Acceptance Criteria có thay thế được kiểm thử tự động (Unit Test) không?</span>
+              <div class="qa-actions">
+                <span class="qa-toggle-hint"><i class="fa-regular fa-eye"></i> Xem câu trả lời</span>
+                <i class="fa-solid fa-chevron-down qa-toggle-icon"></i>
+              </div>
+            </div>
+            <div class="qa-answer">
+              <strong>Trả lời của DEV:</strong> "Không, AC và Unit Test bổ trợ cho nhau. AC theo chuẩn Given-When-Then là tiêu chuẩn nghiệm thu mức độ hành vi nghiệp vụ giữa PO và Dev, còn Unit Test kiểm tra tính đúng đắn của từng hàm/module mã nguồn. Trong Definition of Done của nhóm, một story chỉ được coi là Done khi cả Unit Test đạt &ge; 80% coverage VÀ toàn bộ AC đều PASS trên Staging."
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ================= VIEW 4: SPECIFICATION / BÁO CÁO 8 MỤC ================= -->
+    <section class="view-panel" id="viewSpec">
+      <div class="spec-container">
+        <div class="spec-box" id="specReportContent">
+          <!-- Full text report ready for copy or print -->
+          <div class="spec-title-group">
+            <h2>HỒ SƠ BÁO CÁO MINI PROJECT AGIL SCRUM: DỰ ÁN MOTOGO</h2>
+            <p><strong>Sinh viên:</strong> Đỗ Tiến Nam | <strong>Mã SV:</strong> B25DTCN117 | <strong>Lớp:</strong> CNTT3</p>
+            <p><strong>Bảng Trello:</strong> MotoGo – Đỗ Tiến Nam – CNTT3 (Chế độ công khai)</p>
+          </div>
+          <hr>
+          
+          <div class="spec-section">
+            <h3>Hạng mục 1: Phân rã Epic – Feature</h3>
+            <ul>
+              <li><strong>EPIC-01: Tối ưu hóa trải nghiệm tìm kiếm và giữ chỗ xe máy tức thì cho du khách</strong> (Giá trị: Giúp du khách tra cứu nhanh trong 2 phút, khóa giữ xe tức thì không lo hết xe vào dịp lễ tại VT & ĐN).
+                <ul>
+                  <li>FEAT-01: Tìm kiếm & Lọc xe đa tiêu chí (Bao phủ: FR-01, FR-02)</li>
+                  <li>FEAT-02: Đặt chỗ & Giữ xe thời gian thực 30 phút (Bao phủ: FR-03, FR-04, BR-01)</li>
+                </ul>
+              </li>
+              <li><strong>EPIC-02: Tối ưu vận hành và điều phối kho xe thông minh cho đối tác cửa hàng</strong> (Giá trị: Giúp chủ cửa hàng kiểm soát 100% tình trạng xe, tự động chặn trùng lịch).
+                <ul>
+                  <li>FEAT-03: Quản lý trạng thái & Lịch biểu xe chống trùng (Bao phủ: FR-05, FR-06, BR-02)</li>
+                  <li>FEAT-04: Xử lý & Phê duyệt đơn đặt tức thời (Bao phủ: FR-07, FR-08)</li>
+                </ul>
+              </li>
+              <li><strong>EPIC-03: Minh bạch hóa quy trình giao nhận và bảo vệ quyền lợi tài sản hai bên</strong> (Giá trị: Triệt tiêu tranh chấp hư hại trầy xước nhờ bằng chứng ảnh chụp 4 góc chuẩn mực).
+                <ul>
+                  <li>FEAT-05: Biên bản số hóa giao xe 4 góc ảnh (Bao phủ: FR-09, FR-10, BR-03)</li>
+                  <li>FEAT-06: Nghiệm thu hoàn trả & Quyết toán cọc (Bao phủ: FR-11, FR-12, BR-04)</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 2: Danh sách User Story (Đủ 6 trường bắt buộc)</h3>
+            <p>Toàn bộ 10 User Story đã được chuẩn hóa, không quá 2 dòng, truy vết ngược FR/BR, có 3 story cho người dùng không phải khách.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 3: Đánh giá INVEST & Tái cấu trúc</h3>
+            <p>Đã đánh giá 3 story (US-02, US-05, US-X lỗi). Bản viết lại Before & After đã được trình bày chi tiết.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 4: Acceptance Criteria (Given-When-Then)</h3>
+            <p>Đã xây dựng cho 3 story Must cao nhất (US-02, US-03, US-05), bao phủ luồng chính, ngoại lệ và tham chiếu BR-01, BR-02, BR-03.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 5: Definition of Done</h3>
+            <p>5 tiêu chí nhị phân kiểm chứng Có/Không, không dùng từ chung chung; phân tích đối chiếu chuyên sâu DoD vs AC.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 6: MoSCoW Prioritization</h3>
+            <p>Tỷ lệ Must Have = 50% (&le; 50%). Giải trình 4 hạng mục gắn liền 3 mục tiêu kinh doanh SRS và lý do xếp Won't.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 7: Ước lượng Story Point</h3>
+            <p>Story chuẩn US-01 (3 SP), thang Fibonacci, minh họa kỹ thuật chia nhỏ story vượt 13 SP.</p>
+          </div>
+
+          <div class="spec-section">
+            <h3>Hạng mục 8: Kế hoạch Sprint 1</h3>
+            <p>Sprint Goal 1 câu giá trị người dùng; Capacity = 144 giờ hiệu dụng; Backlog 4 Story Must = 18 SP; Bảng phân rã task chi tiết 36h cho US-02.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= CARD DETAIL MODAL (6 FIELDS FORMAT) ================= -->
+  <div class="modal-backdrop" id="cardModalBackdrop">
+    <div class="trello-modal" id="cardModal">
+      <button class="modal-close-btn" id="btnModalClose">&times;</button>
+      
+      <div class="modal-header">
+        <div class="modal-tag-row" id="modalTagRow">
+          <!-- Badges injected -->
+        </div>
+        <h2 class="modal-title" id="modalCardTitle">Mã Story & Tiêu đề</h2>
+        <div class="modal-meta-row" id="modalMetaRow">
+          <!-- Meta tags -->
+        </div>
+      </div>
+
+      <div class="modal-body">
+        
+        <!-- Field 1 & 2: Mã & Nội dung Story -->
+        <div class="modal-field-group">
+          <div class="field-label"><i class="fa-solid fa-quote-left"></i> Nội dung User Story (Chuẩn cấu trúc &le; 2 dòng):</div>
+          <div class="field-value callout-text" id="modalStoryText">
+            Là... tôi muốn... để...
+          </div>
+        </div>
+
+        <div class="modal-grid-2col">
+          <!-- Field 3: Truy vết -->
+          <div class="modal-field-group">
+            <div class="field-label"><i class="fa-solid fa-link"></i> Truy vết yêu cầu:</div>
+            <div class="field-value" id="modalTraceability">FR-03, BR-01</div>
+          </div>
+
+          <!-- Field 4: MoSCoW -->
+          <div class="modal-field-group">
+            <div class="field-label"><i class="fa-solid fa-flag"></i> Mức ưu tiên MoSCoW:</div>
+            <div class="field-value" id="modalPriority">Must</div>
+          </div>
+
+          <!-- Field 5: Story Point -->
+          <div class="modal-field-group">
+            <div class="field-label"><i class="fa-solid fa-calculator"></i> Story Point (Fibonacci):</div>
+            <div class="field-value" id="modalStoryPoint">5 SP (Chuẩn so sánh US-01)</div>
+          </div>
+
+          <!-- Feature Cha -->
+          <div class="modal-field-group">
+            <div class="field-label"><i class="fa-solid fa-sitemap"></i> Feature / Epic Trực Thuộc:</div>
+            <div class="field-value" id="modalParentFeature">Feature 1.2: Đặt xe & giữ chỗ</div>
+          </div>
+        </div>
+
+        <!-- Field 6: Acceptance Criteria -->
+        <div class="modal-field-group" id="modalAcContainer">
+          <div class="field-label"><i class="fa-solid fa-circle-check"></i> Tiêu chí chấp nhận (Acceptance Criteria &ndash; Given/When/Then):</div>
+          <div class="ac-modal-list" id="modalAcList">
+            <!-- Dynamic AC items -->
+          </div>
+        </div>
+
+        <!-- INVEST & Reasoning Note -->
+        <div class="modal-field-group">
+          <div class="field-label"><i class="fa-solid fa-note-sticky"></i> Căn cứ ước lượng & Ghi chú nghiệp vụ:</div>
+          <div class="field-value note-box" id="modalNotes">
+            Ghi chú chi tiết...
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <span class="trello-watermark"><i class="fa-brands fa-trello"></i> Thẻ định dạng chuẩn 6 trường theo Mục 6 của đề bài</span>
+        <button class="btn btn-secondary" id="btnModalClose2">Đóng</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast -->
+  <div class="toast" id="toast">Thông báo</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

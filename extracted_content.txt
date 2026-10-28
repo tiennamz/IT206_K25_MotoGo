@@ -1,0 +1,119 @@
+[MINI PROJECT]XÂY DỰNG PRODUCT BACKLOG VÀ KẾ HOẠCH SPRINT CHO DỰ ÁN MOTOGO
+ 
+1. Mục tiêu
+Xây dựng hồ sơ Scrum cho Sprint đầu tiên của một dự án thực tế nhằm:
+Phân rã yêu cầu nghiệp vụ thành ba cấp Epic – Feature – User Story.
+Viết User Story đạt chuẩn INVEST và truy vết ngược được về tài liệu yêu cầu.
+Viết Acceptance Criteria theo cấu trúc Given – When – Then, bao phủ cả luồng chính và luồng ngoại lệ.
+Sắp thứ tự ưu tiên Backlog bằng kỹ thuật MoSCoW và bảo vệ được lý do ưu tiên.
+Ước lượng bằng Story Point theo thang Fibonacci và lập kế hoạch Sprint theo capacity thực tế
+2. Mô tả bài toán
+Một công ty du lịch cần xây dựng nền tảng MotoGo kết nối khách du lịch với các cửa hàng cho thuê xe máy tự lái, triển khai trước tại Vũng Tàu và Đà Nẵng.
+Các bạn đóng vai một Scrum Team thu nhỏ, tự đảm nhiệm:
+Product Owner: phân rã yêu cầu, quyết định thứ tự ưu tiên, bảo vệ lý do khi bị chất vấn.
+Scrum Master: tổ chức tiến độ làm việc, ghi nhận trở ngại và cách xử lý.
+Development Team: viết User Story, Acceptance Criteria, ước lượng và phân rã task.
+Tập trung vào ba nhóm nghiệp vụ cốt lõi:
+Khách tìm xe còn trống theo thời gian và đặt giữ chỗ.
+Cửa hàng xác nhận đơn và quản lý kho xe không bị trùng lịch.
+Hai bên lập biên bản giao nhận xe có bằng chứng hình ảnh.
+3. Cấu trúc Product Backlog
+Bảng Trello đặt tên MotoGo – Họ tên – Lớp, chế độ công khai, gồm các list:
+Epic – các nhóm giá trị lớn.
+Feature – các nhóm chức năng thuộc Epic.
+Product Backlog – toàn bộ User Story đã xếp theo thứ tự ưu tiên từ trên xuống.
+Sprint 1 Backlog – story đã chọn vào Sprint 1.
+Hệ thống nhãn bắt buộc:
+Nhãn cấp độ: Epic, Feature, User Story.
+Nhãn ưu tiên: Must, Should, Could, Won't.
+Quan hệ phân cấp: một Epic có nhiều Feature, một Feature có nhiều User Story, một User Story truy vết về một hoặc nhiều mã FR/BR. Mỗi thẻ User Story ghi mã Feature cha trong phần mô tả thẻ.
+4. Các hạng mục cần xây dựng
+Hạng mục 1: Phân rã Epic – Feature
+Yêu cầu:
+Tối thiểu 3 Epic, mỗi Epic có tối thiểu 2 Feature.
+Mỗi Epic ghi rõ giá trị nghiệp vụ mang lại, không đặt tên theo module kỹ thuật.
+Mỗi Feature ghi rõ các mã FR mà nó bao phủ.
+Hạng mục 2: Danh sách User Story
+Yêu cầu:
+Tối thiểu 8 User Story, phủ tối thiểu 3 trong 5 module của SRS.
+Mỗi story viết đúng cấu trúc "Là… tôi muốn… để…".
+Mỗi story gắn mã FR tương ứng để truy vết ngược.
+Tối thiểu 2 story viết cho nhóm người dùng không phải khách thuê (chủ cửa hàng, nhân viên cửa hàng hoặc vận hành viên).
+Story mô tả hạng mục thuộc mục 6 "Ngoài phạm vi" của SRS sẽ không được tính.
+Hạng mục 3: Bảng tự đánh giá INVEST
+Yêu cầu:
+Chọn 3 User Story bất kỳ, chấm theo 6 tiêu chí INVEST với kết quả Đạt hoặc Chưa đạt kèm lý do một dòng.
+Tối thiểu 1 story phải được viết lại, trình bày đủ bản trước và bản sau kèm giải thích đã sửa gì.
+Hạng mục 4: Acceptance Criteria
+Yêu cầu:
+Viết cho 3 story có mức ưu tiên cao nhất.
+Mỗi story tối thiểu 3 tiêu chí theo cấu trúc Given – When – Then.
+Trong mỗi story, tối thiểu 1 tiêu chí dành cho trường hợp ngoại lệ.
+Tối thiểu 2 tiêu chí trong toàn bài phải tham chiếu tới một quy tắc nghiệp vụ BR cụ thể.
+Hạng mục 5: Definition of Done
+Yêu cầu:
+Bộ DoD gồm 5 điều kiện, áp dụng chung cho mọi story.
+Mỗi điều kiện phải kiểm chứng được bằng câu trả lời có hoặc không, không dùng từ chung chung như "chất lượng tốt".
+Giải thích DoD khác Acceptance Criteria ở chỗ nào, kèm một ví dụ lấy từ chính story trong bài.
+Hạng mục 6: Prioritized Product Backlog
+Yêu cầu:
+Toàn bộ User Story được xếp vào Must, Should, Could hoặc Won't.
+Bảng giải trình lý do xếp hạng cho tối thiểu 4 hạng mục.
+Mỗi lý do phải gắn với một trong ba mục tiêu kinh doanh ở mục 1 của SRS.
+Tối thiểu 1 hạng mục phải được xếp Won't kèm lý do vì sao chưa làm ở phiên bản đầu tiên.
+Hạng mục 7: Bảng ước lượng Story Point
+Yêu cầu:
+Chọn 1 story làm story chuẩn và gán số điểm mốc cho nó.
+Ước lượng các story còn lại bằng so sánh tương đối với story chuẩn, mỗi story ghi một dòng căn cứ so sánh.
+Story được ước lượng vượt 13 điểm phải tách nhỏ, trình bày kết quả sau khi tách.
+Hạng mục 8: Kế hoạch Sprint 1
+Yêu cầu:
+Sprint Goal viết trong một câu, nói rõ giá trị mang lại cho người dùng, không liệt kê chức năng.
+Sprint Backlog gồm các story đã chọn, tổng Story Point không vượt velocity giả định.
+Bảng phân rã task cho 1 story, mỗi task kèm số giờ dự kiến.
+Bảng capacity cá nhân: số giờ làm việc thực tế mỗi ngày nhân số ngày Sprint, có trừ thời gian dự phòng.
+5. Ràng buộc dữ liệu
+Bài làm phải thỏa các ràng buộc sau, vi phạm sẽ bị trừ điểm ở hạng mục tương ứng:
+Số lượng Epic: tối thiểu 3, mỗi Epic tối thiểu 2 Feature.
+Số lượng User Story: tối thiểu 8, độ dài mỗi story không quá 2 dòng.
+Truy vết: mỗi User Story gắn tối thiểu 1 mã FR hoặc BR.
+Story Point: chỉ nhận giá trị 1, 2, 3, 5, 8, 13.
+Acceptance Criteria: đủ ba mệnh đề Given, When, Then; không gộp nhiều điều kiện vào một mệnh đề Then.
+MoSCoW: mỗi story thuộc đúng một mức, tỷ lệ Must không vượt quá 50% tổng số story.
+Sprint Backlog: tổng Story Point nhỏ hơn hoặc bằng velocity giả định.
+Phạm vi: không chứa hạng mục thuộc mục 6 của SRS.
+6. Cấu trúc trình bày
+Mỗi User Story trong báo cáo phải trình bày đủ sáu trường theo đúng thứ tự:
+Mã  story | US-01
+Mã story
+US-01
+User   Story | Là khách thuê, tôi muốn giữ chỗ chiếc xe vừa chọn để không bị người khác đặt mất trong lúc tôi thanh toán.
+User Story
+Là khách thuê, tôi muốn giữ chỗ chiếc xe vừa chọn để không bị người khác đặt mất trong lúc tôi thanh toán.
+Truy vết | FR-10, BR-05
+Truy vết
+FR-10, BR-05
+Mức ưu tiên | Must
+Mức ưu tiên
+Must
+Story   Point | 5
+Story Point
+5
+Acceptance   Criteria | AC-01, AC-02, AC-03
+Acceptance Criteria
+AC-01, AC-02, AC-03
+ 
+Mỗi Acceptance Criteria trình bày theo mẫu:
+AC-01 (luồng chính) | Given  khách đã chọn xe còn trống và bấm đặt,  When  hệ thống tạo đơn thành công, Then xe được giữ chỗ 30 phút và không hiển thị cho khách khác.
+AC-01 (luồng chính)
+Given khách đã chọn xe còn trống và bấm đặt, When hệ thống tạo đơn thành công, Then xe được giữ chỗ 30 phút và không hiển thị cho khách khác.
+AC-02 (ngoại lệ) | Given  đơn đang ở trạng thái chờ thanh toán,  When  quá 30 phút mà khách chưa thanh toán cọc, Then đơn tự động hủy và xe được mở lại trong kết quả tìm kiếm.
+AC-02 (ngoại lệ)
+Given đơn đang ở trạng thái chờ thanh toán, When quá 30 phút mà khách chưa thanh toán cọc, Then đơn tự động hủy và xe được mở lại trong kết quả tìm kiếm.
+7. Yêu cầu kỹ thuật
+Sử dụng Trello cho toàn bộ Product Backlog, bảng để chế độ công khai và kiểm tra lại bằng cửa sổ ẩn danh.
+Sử dụng nhãn Trello đúng hai nhóm đã quy định ở mục 3.
+Thứ tự thẻ trong list Product Backlog phải phản ánh đúng thứ tự ưu tiên đã giải trình.
+Báo cáo chỉ trình bày chi tiết sáu trường cho 3 story có Acceptance Criteria; các story còn lại chỉ cần bảng tóm tắt, chi tiết nằm trên Trello.
+Báo cáo trình bày theo đúng thứ tự 8 hạng mục ở mục 4.
+Chèn ảnh chụp màn hình bảng Trello vào Hạng mục 1.
